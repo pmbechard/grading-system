@@ -3,7 +3,7 @@ import React from 'react';
 const Header = () => {
   return (
     <header>
-      <h1>STIS & TASY Grade Reporting System</h1>
+      <h1>Grade Reporting System</h1>
     </header>
   );
 };

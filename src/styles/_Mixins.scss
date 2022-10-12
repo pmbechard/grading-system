@@ -1,0 +1,25 @@
+@mixin fCentre($direction: row) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+}
+
+@mixin hoverActive {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 0.9;
+    transform: scale(1.01);
+  }
+}
+
+@mixin buttonStyle() {
+  border-radius: 8px;
+  border: none;
+  background-color: $blue;
+  color: white;
+  @include hoverActive();
+  padding: 10px 20px;
+}

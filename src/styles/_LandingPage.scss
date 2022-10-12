@@ -1,0 +1,30 @@
+.landing-page-container {
+  height: $bodyHeight;
+
+  button {
+    @include buttonStyle();
+  }
+
+  .user-info-area {
+    @include fCentre();
+    justify-content: space-around;
+    height: 10vh;
+    background-color: $grey;
+
+    button {
+      background-color: $red;
+    }
+  }
+
+  .landing-page-options-area {
+    @include fCentre(column);
+    justify-content: flex-start;
+    gap: 20px;
+    height: calc($bodyHeight - 10vh);
+    padding: 40px;
+
+    select {
+      padding: 10px 20px;
+    }
+  }
+}

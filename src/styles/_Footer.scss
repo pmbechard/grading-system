@@ -1,0 +1,6 @@
+footer {
+  font-size: 14px;
+  @include fCentre();
+  height: $footerHeight;
+  background-color: $grey;
+}
