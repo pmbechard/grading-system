@@ -49,7 +49,7 @@ header {
   padding: 40px;
 }
 .landing-page-container .landing-page-options-area .landing-page-tabs {
-  width: 60%;
+  width: max(60%, 350px);
 }
 .landing-page-container .landing-page-options-area .landing-page-tabs .tab {
   background-color: rgb(219, 219, 219);
@@ -63,9 +63,33 @@ header {
   transform: scaleY(1.1);
   color: white;
 }
-.landing-page-container .landing-page-options-area select {
+
+.enter-grades-container select {
   padding: 10px 20px;
   width: 300px;
+}
+
+.manage-grades-container {
+  width: max(60%, 350px);
+}
+.manage-grades-container .manage-options-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.manage-grades-container .manage-options-area .manage-quarter-selection-area label,
+.manage-grades-container .manage-options-area .manage-quarter-selection-area .label {
+  margin-right: 20px;
+}
+.manage-grades-container .manage-options-area .manage-quarter-selection-area input {
+  margin-right: 5px;
+}
+.manage-grades-container .manage-options-area .manage-subject-selection select {
+  padding: 10px 20px;
+  width: 250px;
 }
 
 footer {

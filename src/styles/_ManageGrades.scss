@@ -1,0 +1,26 @@
+.manage-grades-container {
+  width: max(60%, 350px);
+
+  .manage-options-area {
+    @include fCentre();
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    .manage-quarter-selection-area {
+      label,
+      .label {
+        margin-right: 20px;
+      }
+      input {
+        margin-right: 5px;
+      }
+    }
+
+    .manage-subject-selection {
+      select {
+        padding: 10px 20px;
+        width: 250px;
+      }
+    }
+  }
+}

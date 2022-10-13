@@ -24,7 +24,7 @@
     padding: 40px;
 
     .landing-page-tabs {
-      width: 60%;
+      width: max(60%, 350px);
 
       .tab {
         background-color: $grey;
@@ -39,11 +39,6 @@
         transform: scaleY(1.1);
         color: white;
       }
-    }
-
-    select {
-      padding: 10px 20px;
-      width: 300px;
     }
   }
 }
