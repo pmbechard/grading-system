@@ -23,8 +23,27 @@
     height: calc($bodyHeight - 10vh);
     padding: 40px;
 
+    .landing-page-tabs {
+      width: 60%;
+
+      .tab {
+        background-color: $grey;
+        width: 50%;
+        border-radius: 0;
+        color: black;
+      }
+
+      .disabled {
+        background-color: $blue;
+        pointer-events: none;
+        transform: scaleY(1.1);
+        color: white;
+      }
+    }
+
     select {
       padding: 10px 20px;
+      width: 300px;
     }
   }
 }

@@ -1,4 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import EnterGrades from './EnterGrades';
+import ManageGrades from './ManageGrades';
 
 interface Props {
   getUser: string;
@@ -15,11 +17,10 @@ const LandingPage: React.FC<Props> = ({
   getCategories,
   fetchCategories,
 }) => {
-  const subjectRef = useRef<HTMLSelectElement>(null);
-  const categoryRef = useRef<HTMLSelectElement>(null);
+  const [showEnterGrades, setShowEnterGrades] = useState<boolean>(true);
 
-  const handleSubjectChange = () => {
-    fetchCategories(subjectRef.current?.value || '');
+  const handleTabSwitch = () => {
+    setShowEnterGrades(!showEnterGrades);
   };
 
   return (
@@ -30,56 +31,35 @@ const LandingPage: React.FC<Props> = ({
       </div>
 
       <div className='landing-page-options-area'>
-        <button>Manage Grade Weights</button>
+        <div className='landing-page-tabs'>
+          <button
+            className={`tab ${showEnterGrades ? 'disabled' : ''}`}
+            onClick={handleTabSwitch}
+          >
+            Enter Grades
+          </button>
+          <button
+            className={`tab ${showEnterGrades ? '' : 'disabled'}`}
+            onClick={handleTabSwitch}
+          >
+            Manage Grades
+          </button>
+        </div>
 
-        <select id='quarter-selection' defaultValue=''>
-          <option disabled value=''>
-            Select a Quarter
-          </option>
-          <option value='q1'>Q1</option>
-          <option value='q2'>Q2</option>
-          <option value='q3'>Q3</option>
-          <option value='q4'>Q4</option>
-        </select>
-
-        <select
-          id='subject-selection'
-          ref={subjectRef}
-          defaultValue=''
-          onChange={handleSubjectChange}
-        >
-          <option disabled value=''>
-            Select a Subject
-          </option>
-          {getSubjects.map((subject) => {
-            return (
-              <option
-                key={subject.replaceAll(' ', '-').toLowerCase()}
-                value={subject}
-              >
-                {subject}
-              </option>
-            );
-          })}
-        </select>
-
-        <select id='category-selection' ref={categoryRef} defaultValue=''>
-          <option disabled value=''>
-            Select a Category
-          </option>
-          {getCategories.map((category) => {
-            return (
-              <option
-                key={category.replaceAll(' ', '-').toLowerCase()}
-                value={category}
-              >
-                {category}
-              </option>
-            );
-          })}
-        </select>
-
-        <button>Enter Grades</button>
+        {showEnterGrades && (
+          <EnterGrades
+            getSubjects={getSubjects}
+            getCategories={getCategories}
+            fetchCategories={fetchCategories}
+          />
+        )}
+        {!showEnterGrades && (
+          <ManageGrades
+            getSubjects={getSubjects}
+            getCategories={getCategories}
+            fetchCategories={fetchCategories}
+          />
+        )}
       </div>
     </section>
   );

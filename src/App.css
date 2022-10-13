@@ -48,8 +48,24 @@ header {
   height: 65vh;
   padding: 40px;
 }
+.landing-page-container .landing-page-options-area .landing-page-tabs {
+  width: 60%;
+}
+.landing-page-container .landing-page-options-area .landing-page-tabs .tab {
+  background-color: rgb(219, 219, 219);
+  width: 50%;
+  border-radius: 0;
+  color: black;
+}
+.landing-page-container .landing-page-options-area .landing-page-tabs .disabled {
+  background-color: #373adb;
+  pointer-events: none;
+  transform: scaleY(1.1);
+  color: white;
+}
 .landing-page-container .landing-page-options-area select {
   padding: 10px 20px;
+  width: 300px;
 }
 
 footer {
@@ -60,6 +76,8 @@ footer {
   flex-direction: row;
   height: 10vh;
   background-color: rgb(219, 219, 219);
+  text-align: center;
+  padding: 10px 20px;
 }
 
 * {
