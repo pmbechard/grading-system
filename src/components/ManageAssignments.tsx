@@ -2,24 +2,18 @@ import React, { useRef } from 'react';
 
 interface Props {
   getSubjects: string[];
-  getCategories: string[];
-  fetchCategories: (subject: string) => Promise<void>;
+  handleSubjectChange: (subject: string) => void;
 }
 
-const ManageGrades: React.FC<Props> = ({
+const ManageAssignments: React.FC<Props> = ({
   getSubjects,
-  getCategories,
-  fetchCategories,
+  handleSubjectChange,
 }) => {
   const subjectRef = useRef<HTMLSelectElement>(null);
   const categoryRef = useRef<HTMLSelectElement>(null);
 
-  const handleSubjectChange = () => {
-    fetchCategories(subjectRef.current?.value || '');
-  };
-
   return (
-    <div className='manage-grades-container'>
+    <div className='manage-assignments-container'>
       <div className='manage-options-area'>
         <div className='manage-quarter-selection-area'>
           <span className='label'>Apply to:</span>
@@ -39,7 +33,9 @@ const ManageGrades: React.FC<Props> = ({
           <select
             ref={subjectRef}
             defaultValue=''
-            onChange={handleSubjectChange}
+            onChange={() =>
+              handleSubjectChange(subjectRef.current?.value || '')
+            }
           >
             <option disabled value=''>
               Select a Subject
@@ -61,4 +57,4 @@ const ManageGrades: React.FC<Props> = ({
   );
 };
 
-export default ManageGrades;
+export default ManageAssignments;

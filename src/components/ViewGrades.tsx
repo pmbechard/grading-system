@@ -6,13 +6,14 @@ interface Props {
   handleSubjectChange: (subject: string) => void;
 }
 
-const EnterGrades: React.FC<Props> = ({
+const ViewGrades: React.FC<Props> = ({
   getSubjects,
   getCategories,
-  handleSubjectChange,
+  handleSubjectChange
 }) => {
   const subjectRef = useRef<HTMLSelectElement>(null);
   const categoryRef = useRef<HTMLSelectElement>(null);
+
 
   return (
     <div className='enter-grades-container'>
@@ -64,4 +65,4 @@ const EnterGrades: React.FC<Props> = ({
   );
 };
 
-export default EnterGrades;
+export default ViewGrades;

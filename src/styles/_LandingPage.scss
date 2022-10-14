@@ -19,16 +19,19 @@
   .landing-page-options-area {
     @include fCentre(column);
     justify-content: flex-start;
+    align-items: center;
     gap: 20px;
     height: calc($bodyHeight - 10vh);
     padding: 40px;
 
     .landing-page-tabs {
-      width: max(60%, 350px);
+      width: max(80%, 350px);
+      @include fCentre();
+      justify-content: stretch;
 
       .tab {
         background-color: $grey;
-        width: 50%;
+        width: 100%;
         border-radius: 0;
         color: black;
       }

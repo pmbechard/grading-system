@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import EnterGrades from './EnterGrades';
-import ManageGrades from './ManageGrades';
+import ManageAssignments from './ManageAssignments';
 
 interface Props {
   getUser: string;
   logOut: () => Promise<void>;
   getSubjects: string[];
   getCategories: string[];
-  fetchCategories: (subject: string) => Promise<void>;
+  getCategoriesForSubject: (subject: string) => Promise<void>;
 }
 
 const LandingPage: React.FC<Props> = ({
@@ -15,12 +15,16 @@ const LandingPage: React.FC<Props> = ({
   logOut,
   getSubjects,
   getCategories,
-  fetchCategories,
+  getCategoriesForSubject,
 }) => {
-  const [showEnterGrades, setShowEnterGrades] = useState<boolean>(true);
+  const [getTab, setTab] = useState<string>('view');
 
-  const handleTabSwitch = () => {
-    setShowEnterGrades(!showEnterGrades);
+  const handleTabSwitch = (tab: string) => {
+    setTab(tab);
+  };
+
+  const handleSubjectChange = (subject: string) => {
+    getCategoriesForSubject(subject);
   };
 
   return (
@@ -33,31 +37,43 @@ const LandingPage: React.FC<Props> = ({
       <div className='landing-page-options-area'>
         <div className='landing-page-tabs'>
           <button
-            className={`tab ${showEnterGrades ? 'disabled' : ''}`}
-            onClick={handleTabSwitch}
+            className={`tab ${getTab === 'view' && 'disabled'}`}
+            onClick={() => handleTabSwitch('view')}
+          >
+            View Grades
+          </button>
+          <button
+            className={`tab ${getTab === 'enter' && 'disabled'}`}
+            onClick={() => handleTabSwitch('enter')}
           >
             Enter Grades
           </button>
           <button
-            className={`tab ${showEnterGrades ? '' : 'disabled'}`}
-            onClick={handleTabSwitch}
+            className={`tab ${getTab === 'manage' && 'disabled'}`}
+            onClick={() => handleTabSwitch('manage')}
           >
-            Manage Grades
+            Manage Assignments
           </button>
         </div>
 
-        {showEnterGrades && (
+        {getTab === 'view' && (
           <EnterGrades
             getSubjects={getSubjects}
             getCategories={getCategories}
-            fetchCategories={fetchCategories}
+            handleSubjectChange={handleSubjectChange}
           />
         )}
-        {!showEnterGrades && (
-          <ManageGrades
+        {getTab === 'enter' && (
+          <EnterGrades
             getSubjects={getSubjects}
             getCategories={getCategories}
-            fetchCategories={fetchCategories}
+            handleSubjectChange={handleSubjectChange}
+          />
+        )}
+        {getTab === 'manage' && (
+          <ManageAssignments
+            getSubjects={getSubjects}
+            handleSubjectChange={handleSubjectChange}
           />
         )}
       </div>

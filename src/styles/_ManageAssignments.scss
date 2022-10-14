@@ -1,4 +1,4 @@
-.manage-grades-container {
+.manage-assignments-container {
   width: max(60%, 350px);
 
   .manage-options-area {
@@ -7,10 +7,15 @@
     flex-wrap: wrap;
 
     .manage-quarter-selection-area {
-      label,
       .label {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      label {
         margin-right: 20px;
       }
+
       input {
         margin-right: 5px;
       }

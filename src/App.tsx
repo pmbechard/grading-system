@@ -35,7 +35,7 @@ function App() {
     setSubjects(subjectList);
   };
 
-  const fetchCategories = async (subject: string): Promise<void> => {
+  const getCategoriesForSubject = async (subject: string): Promise<void> => {
     // FIXME:
     let categoryList: string[] = [];
     sample.subjects.forEach((obj) => {
@@ -57,7 +57,7 @@ function App() {
           logOut={logOut}
           getSubjects={getSubjects}
           getCategories={getCategories}
-          fetchCategories={fetchCategories}
+          getCategoriesForSubject={getCategoriesForSubject}
         />
       ) : (
         <div className='log-in-area'>

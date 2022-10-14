@@ -44,16 +44,22 @@ header {
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
+  align-items: center;
   gap: 20px;
   height: 65vh;
   padding: 40px;
 }
 .landing-page-container .landing-page-options-area .landing-page-tabs {
-  width: max(60%, 350px);
+  width: max(80%, 350px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: stretch;
 }
 .landing-page-container .landing-page-options-area .landing-page-tabs .tab {
   background-color: rgb(219, 219, 219);
-  width: 50%;
+  width: 100%;
   border-radius: 0;
   color: black;
 }
@@ -69,10 +75,10 @@ header {
   width: 300px;
 }
 
-.manage-grades-container {
+.manage-assignments-container {
   width: max(60%, 350px);
 }
-.manage-grades-container .manage-options-area {
+.manage-assignments-container .manage-options-area {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,14 +86,17 @@ header {
   justify-content: space-around;
   flex-wrap: wrap;
 }
-.manage-grades-container .manage-options-area .manage-quarter-selection-area label,
-.manage-grades-container .manage-options-area .manage-quarter-selection-area .label {
+.manage-assignments-container .manage-options-area .manage-quarter-selection-area .label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+.manage-assignments-container .manage-options-area .manage-quarter-selection-area label {
   margin-right: 20px;
 }
-.manage-grades-container .manage-options-area .manage-quarter-selection-area input {
+.manage-assignments-container .manage-options-area .manage-quarter-selection-area input {
   margin-right: 5px;
 }
-.manage-grades-container .manage-options-area .manage-subject-selection select {
+.manage-assignments-container .manage-options-area .manage-subject-selection select {
   padding: 10px 20px;
   width: 250px;
 }
