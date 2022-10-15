@@ -9,15 +9,15 @@ interface Props {
 const ViewGrades: React.FC<Props> = ({
   getSubjects,
   getCategories,
-  handleSubjectChange
+  handleSubjectChange,
 }) => {
+  const quarterRef = useRef<HTMLSelectElement>(null);
   const subjectRef = useRef<HTMLSelectElement>(null);
   const categoryRef = useRef<HTMLSelectElement>(null);
 
-
   return (
     <div className='enter-grades-container'>
-      <select id='quarter-selection' defaultValue=''>
+      <select id='quarter-selection' defaultValue='' ref={quarterRef}>
         <option disabled value=''>
           Select a Quarter
         </option>
@@ -46,10 +46,12 @@ const ViewGrades: React.FC<Props> = ({
           );
         })}
       </select>
-      <select id='category-selection' ref={categoryRef} defaultValue=''>
-        <option disabled value=''>
-          Select a Category
-        </option>
+      <select
+        id='category-selection'
+        ref={categoryRef}
+        defaultValue='All Categories'
+      >
+        <option value='All Categories'>All Categories</option>
         {getCategories.map((category) => {
           return (
             <option
@@ -61,6 +63,14 @@ const ViewGrades: React.FC<Props> = ({
           );
         })}
       </select>
+
+      <table>
+        <thead>
+          <tr>
+            <th scope='col'>Name</th>
+          </tr>
+        </thead>
+      </table>
     </div>
   );
 };

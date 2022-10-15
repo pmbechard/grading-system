@@ -1,0 +1,41 @@
+{
+  "classes": [
+    {
+      "Geometry": {
+        "categories": [
+          {
+            "category": "Chapter Tests",
+            "assignments": [
+              { "name": "Ch 1 Test", "quarter": ["1"] },
+              { "name": "Ch 2 Test", "quarter": ["1"] },
+              { "name": "Ch 3 Test", "quarter": ["2"] },
+              { "name": "Ch 4 Test", "quarter": ["2"] }
+            ]
+          },
+          {
+            "category": "Homework",
+            "assignments": [
+              { "name": "Q1 HW", "quarter": ["1"] },
+              { "name": "Q2 HW", "quarter": ["2"] },
+              { "name": "Q3 HW", "quarter": ["3"] },
+              { "name": "Q4 HW", "quarter": ["4"] }
+            ]
+          }
+        ]
+      },
+      "AP CS A": {
+        "categories": [
+          {
+            "category": "Progress Checks",
+            "quarters": ["1", "2", "3"],
+            "assignments": [
+              { "name": "Check 1", "quarter": 1 },
+              { "name": "Check 2", "quarter": 2 },
+              { "name": "Check 3", "quarter": 3 }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

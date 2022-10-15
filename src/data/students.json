@@ -1,0 +1,31 @@
+{
+  "students": [
+    {
+      "name": "Jack",
+      "grades": [
+        {
+          "class": "Geometry",
+          "assignments": {
+            "name": "Ch 1 Test",
+            "category": "Chapter Tests",
+            "grade": "75"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "Jill",
+      "grades": [
+        {
+          "class": "ap cs a",
+          "assignments": {
+            "name": "Check 1",
+            "category": "Progress Checks",
+            "grade": "90"
+          }
+        }
+      ]
+    }
+  ]
+}

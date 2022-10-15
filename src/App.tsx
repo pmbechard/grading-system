@@ -5,7 +5,11 @@ import Header from './components/Header';
 import LandingPage from './components/LandingPage';
 
 // FIXME:
-import sample from './sampleData.json';
+import students from './data/students.json';
+import teachers from './data/teacher.json';
+import classes from './data/classes.json';
+
+import ClassesInterface from './components/interfaces/ClassesInterface';
 
 function App() {
   const [getUser, setUser] = useState<string>('');
@@ -18,7 +22,7 @@ function App() {
 
   const logIn = async (): Promise<void> => {
     // FIXME: Add log in functionality
-    setTimeout(() => setUser(sample.user), 500);
+    setTimeout(() => setUser(teachers['john@school.com'].name), 500);
   };
 
   const logOut = async (): Promise<void> => {
@@ -28,24 +32,13 @@ function App() {
 
   const fetchSubjects = async (): Promise<void> => {
     // FIXME:
-    const subjectList: string[] = [];
-    sample.subjects.forEach((obj) => {
-      subjectList.push(obj.subject);
-    });
-    setSubjects(subjectList);
+    const classesObj = classes as ClassesInterface;
   };
 
   const getCategoriesForSubject = async (subject: string): Promise<void> => {
     // FIXME:
-    let categoryList: string[] = [];
-    sample.subjects.forEach((obj) => {
-      if (obj.subject === subject) {
-        obj.categories.forEach((cat) => {
-          categoryList.push(cat.category);
-        });
-      }
-    });
-    setCategories(categoryList);
+    // const classObj = classes.classes.
+    // setCategories(classObj.categories);
   };
 
   return (

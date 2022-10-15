@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import EnterGrades from './EnterGrades';
 import ManageAssignments from './ManageAssignments';
+import ViewGrades from './ViewGrades';
 
 interface Props {
   getUser: string;
@@ -57,7 +58,7 @@ const LandingPage: React.FC<Props> = ({
         </div>
 
         {getTab === 'view' && (
-          <EnterGrades
+          <ViewGrades
             getSubjects={getSubjects}
             getCategories={getCategories}
             handleSubjectChange={handleSubjectChange}
