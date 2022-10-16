@@ -5,11 +5,11 @@ import Header from './components/Header';
 import LandingPage from './components/LandingPage';
 
 // FIXME:
+import subjects from './data/subjects.json';
 import students from './data/students.json';
 import teachers from './data/teacher.json';
-import classes from './data/classes.json';
 
-import ClassesInterface from './components/interfaces/ClassesInterface';
+import Subject from './components/interfaces/SubjectInterface';
 
 function App() {
   const [getUser, setUser] = useState<string>('');
@@ -32,13 +32,16 @@ function App() {
 
   const fetchSubjects = async (): Promise<void> => {
     // FIXME:
-    const classesObj = classes as ClassesInterface;
+    const subjectsData = subjects.classes as Subject[];
+    setSubjects(subjectsData.map((item) => item.subject));
   };
 
   const getCategoriesForSubject = async (subject: string): Promise<void> => {
     // FIXME:
-    // const classObj = classes.classes.
-    // setCategories(classObj.categories);
+    const categoriesData = (subjects.classes as Subject[]).filter(
+      (item) => item.subject === subject
+    )[0].categories;
+    setCategories(categoriesData.map((item) => item.category));
   };
 
   return (
