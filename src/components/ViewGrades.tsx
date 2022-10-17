@@ -66,11 +66,14 @@ const ViewGrades: React.FC<Props> = ({
         })}
       </select>
 
-      {subjectRef.current?.value !== '' && (
+      {subjectRef.current?.value && (
         <table>
           <thead>
             <tr>
               <th scope='col'>Name</th>
+              {getCategories.map((category) => {
+                return <th>{category}</th>;
+              })}
             </tr>
           </thead>
           <tbody>
