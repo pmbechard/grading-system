@@ -15,6 +15,7 @@ function App() {
   const [getUser, setUser] = useState<string>('');
   const [getSubjects, setSubjects] = useState<string[]>([]);
   const [getCategories, setCategories] = useState<string[]>([]);
+  const [getStudents, setStudents] = useState<string[]>([]);
 
   useEffect(() => {
     fetchSubjects();
@@ -36,12 +37,23 @@ function App() {
     setSubjects(subjectsData.map((item) => item.subject));
   };
 
-  const getCategoriesForSubject = async (subject: string): Promise<void> => {
-    // FIXME:
+  const setCategoriesForSubject = async (subject: string): Promise<void> => {
     const categoriesData = (subjects.classes as Subject[]).filter(
       (item) => item.subject === subject
     )[0].categories;
     setCategories(categoriesData.map((item) => item.category));
+  };
+
+  const setStudentsBySubject = async (subject: string): Promise<void> => {
+    const studentList: string[] = [];
+
+    students.students.forEach((student) => {
+      student.grades.forEach((grade) => {
+        if (grade.class === subject) studentList.push(student.name);
+      });
+    });
+
+    setStudents(studentList);
   };
 
   return (
@@ -53,7 +65,9 @@ function App() {
           logOut={logOut}
           getSubjects={getSubjects}
           getCategories={getCategories}
-          getCategoriesForSubject={getCategoriesForSubject}
+          setCategoriesForSubject={setCategoriesForSubject}
+          setStudentsBySubject={setStudentsBySubject}
+          getStudents={getStudents}
         />
       ) : (
         <div className='log-in-area'>

@@ -4,12 +4,14 @@ interface Props {
   getSubjects: string[];
   getCategories: string[];
   handleSubjectChange: (subject: string) => void;
+  getStudents: string[];
 }
 
 const ViewGrades: React.FC<Props> = ({
   getSubjects,
   getCategories,
   handleSubjectChange,
+  getStudents,
 }) => {
   const quarterRef = useRef<HTMLSelectElement>(null);
   const subjectRef = useRef<HTMLSelectElement>(null);
@@ -64,13 +66,24 @@ const ViewGrades: React.FC<Props> = ({
         })}
       </select>
 
-      <table>
-        <thead>
-          <tr>
-            <th scope='col'>Name</th>
-          </tr>
-        </thead>
-      </table>
+      {subjectRef.current?.value !== '' && (
+        <table>
+          <thead>
+            <tr>
+              <th scope='col'>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {getStudents.map((student) => {
+              return (
+                <tr>
+                  <td>{student}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

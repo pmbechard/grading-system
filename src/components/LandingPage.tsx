@@ -8,7 +8,9 @@ interface Props {
   logOut: () => Promise<void>;
   getSubjects: string[];
   getCategories: string[];
-  getCategoriesForSubject: (subject: string) => Promise<void>;
+  setCategoriesForSubject: (subject: string) => Promise<void>;
+  setStudentsBySubject: (subject: string) => Promise<void>;
+  getStudents: string[];
 }
 
 const LandingPage: React.FC<Props> = ({
@@ -16,7 +18,9 @@ const LandingPage: React.FC<Props> = ({
   logOut,
   getSubjects,
   getCategories,
-  getCategoriesForSubject,
+  setCategoriesForSubject,
+  setStudentsBySubject,
+  getStudents,
 }) => {
   const [getTab, setTab] = useState<string>('view');
 
@@ -25,7 +29,8 @@ const LandingPage: React.FC<Props> = ({
   };
 
   const handleSubjectChange = (subject: string) => {
-    getCategoriesForSubject(subject);
+    setCategoriesForSubject(subject);
+    setStudentsBySubject(subject);
   };
 
   return (
@@ -62,6 +67,7 @@ const LandingPage: React.FC<Props> = ({
             getSubjects={getSubjects}
             getCategories={getCategories}
             handleSubjectChange={handleSubjectChange}
+            getStudents={getStudents}
           />
         )}
         {getTab === 'enter' && (
