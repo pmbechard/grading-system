@@ -105,9 +105,8 @@ const ViewGrades: React.FC<Props> = ({
                   return (
                     <th
                       key={category}
-                      rowSpan={
-                        getAssignments(getQuarter, getSubject, getCategory)
-                          .length || 1
+                      colSpan={
+                        getAssignments(getQuarter, getSubject, category).length
                       }
                     >
                       {category}
@@ -125,11 +124,18 @@ const ViewGrades: React.FC<Props> = ({
                   <td>100</td>
                   <td>100</td>
                   {getCategories.map((category) => {
-                    return getAssignments(getQuarter, getSubject, category).map(
-                      (assignment) => {
+                    if (
+                      category === getCategory ||
+                      getCategory === 'All Categories'
+                    ) {
+                      return getAssignments(
+                        getQuarter,
+                        getSubject,
+                        category
+                      ).map((assignment) => {
                         return <td>{assignment}</td>;
-                      }
-                    );
+                      });
+                    } else return <></>;
                   })}
                 </tr>
               );
