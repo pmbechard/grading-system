@@ -5,11 +5,14 @@
       "grades": [
         {
           "class": "Geometry",
-          "assignments": {
-            "name": "Ch 1 Test",
-            "category": "Chapter Tests",
-            "grade": "75"
-          }
+          "assignments": [
+            {
+              "name": "Ch 1 Test",
+              "category": "Chapter Tests",
+              "grade": "75",
+              "date": "22 Oct 2022"
+            }
+          ]
         }
       ]
     },
@@ -19,11 +22,14 @@
       "grades": [
         {
           "class": "AP CS A",
-          "assignments": {
-            "name": "Check 1",
-            "category": "Progress Checks",
-            "grade": "90"
-          }
+          "assignments": [
+            {
+              "name": "Check 1",
+              "category": "Progress Checks",
+              "grade": "90",
+              "date": "22 Sep 2022"
+            }
+          ]
         }
       ]
     }

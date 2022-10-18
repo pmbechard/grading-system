@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 interface Props {
   getSubjects: string[];
@@ -13,13 +13,24 @@ const ViewGrades: React.FC<Props> = ({
   handleSubjectChange,
   getStudents,
 }) => {
+  const [getQuarter, setQuarter] = useState<string>('Select a Quarter');
+  const [getSubject, setSubject] = useState<string>('Select a Subject');
+  const [, setCategory] = useState<string>('All Categories');
+
   const quarterRef = useRef<HTMLSelectElement>(null);
   const subjectRef = useRef<HTMLSelectElement>(null);
   const categoryRef = useRef<HTMLSelectElement>(null);
 
   return (
     <div className='enter-grades-container'>
-      <select id='quarter-selection' defaultValue='' ref={quarterRef}>
+      <select
+        id='quarter-selection'
+        defaultValue=''
+        ref={quarterRef}
+        onChange={() =>
+          setQuarter(quarterRef.current?.value || 'Select a Quarter')
+        }
+      >
         <option disabled value=''>
           Select a Quarter
         </option>
@@ -32,7 +43,11 @@ const ViewGrades: React.FC<Props> = ({
         id='subject-selection'
         ref={subjectRef}
         defaultValue=''
-        onChange={() => handleSubjectChange(subjectRef.current?.value || '')}
+        onChange={() => {
+          handleSubjectChange(subjectRef.current?.value || '');
+          setSubject(subjectRef.current?.value || 'Select a Subject');
+        }}
+        disabled={getQuarter === 'Select a Quarter'}
       >
         <option disabled value=''>
           Select a Subject
@@ -52,6 +67,10 @@ const ViewGrades: React.FC<Props> = ({
         id='category-selection'
         ref={categoryRef}
         defaultValue='All Categories'
+        onChange={() =>
+          setCategory(categoryRef.current?.value || 'All Categories')
+        }
+        disabled={getSubject === 'Select a Subject'}
       >
         <option value='All Categories'>All Categories</option>
         {getCategories.map((category) => {
@@ -65,22 +84,28 @@ const ViewGrades: React.FC<Props> = ({
           );
         })}
       </select>
-
       {subjectRef.current?.value && (
         <table>
           <thead>
             <tr>
               <th scope='col'>Name</th>
+              <th>Quarterly Total</th>
+              <th>Annual Total</th>
               {getCategories.map((category) => {
-                return <th>{category}</th>;
+                if (
+                  categoryRef.current?.value === category ||
+                  categoryRef.current?.value === 'All Categories'
+                )
+                  return <th key={category}>{category}</th>;
               })}
             </tr>
           </thead>
           <tbody>
             {getStudents.map((student) => {
               return (
-                <tr>
+                <tr key={student}>
                   <td>{student}</td>
+                  {}
                 </tr>
               );
             })}
