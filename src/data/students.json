@@ -10,7 +10,25 @@
               "name": "Ch 1 Test",
               "category": "Chapter Tests",
               "grade": "75",
+              "date": "22 Sep 2022"
+            },
+            {
+              "name": "Ch 2 Test",
+              "category": "Chapter Tests",
+              "grade": "90",
               "date": "22 Oct 2022"
+            },
+            {
+              "name": "Sep HW",
+              "category": "Homework",
+              "grade": "80",
+              "date": "30 Sep 2022"
+            },
+            {
+              "name": "Oct HW",
+              "category": "Homework",
+              "grade": "85",
+              "date": "30 Oct 2022"
             }
           ]
         }

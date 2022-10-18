@@ -30,9 +30,9 @@
           "category": "Progress Checks",
           "quarters": ["1", "2", "3"],
           "assignments": [
-            { "name": "Check 1", "quarter": 1 },
-            { "name": "Check 2", "quarter": 2 },
-            { "name": "Check 3", "quarter": 3 }
+            { "name": "Check 1", "quarter": ["1"] },
+            { "name": "Check 2", "quarter": ["2"] },
+            { "name": "Check 3", "quarter": ["3"] }
           ]
         }
       ]

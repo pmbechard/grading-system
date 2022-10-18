@@ -5,6 +5,11 @@ interface Props {
   getCategories: string[];
   handleSubjectChange: (subject: string) => void;
   getStudents: string[];
+  getAssignments: (
+    quarter: string,
+    subject: string,
+    category?: string
+  ) => string[];
 }
 
 const ViewGrades: React.FC<Props> = ({
@@ -12,10 +17,11 @@ const ViewGrades: React.FC<Props> = ({
   getCategories,
   handleSubjectChange,
   getStudents,
+  getAssignments,
 }) => {
   const [getQuarter, setQuarter] = useState<string>('Select a Quarter');
   const [getSubject, setSubject] = useState<string>('Select a Subject');
-  const [, setCategory] = useState<string>('All Categories');
+  const [getCategory, setCategory] = useState<string>('All Categories');
 
   const quarterRef = useRef<HTMLSelectElement>(null);
   const subjectRef = useRef<HTMLSelectElement>(null);
@@ -89,14 +95,25 @@ const ViewGrades: React.FC<Props> = ({
           <thead>
             <tr>
               <th scope='col'>Name</th>
-              <th>Quarterly Total</th>
               <th>Annual Total</th>
+              <th>Quarterly Total</th>
               {getCategories.map((category) => {
                 if (
                   categoryRef.current?.value === category ||
                   categoryRef.current?.value === 'All Categories'
                 )
-                  return <th key={category}>{category}</th>;
+                  return (
+                    <th
+                      key={category}
+                      rowSpan={
+                        getAssignments(getQuarter, getSubject, getCategory)
+                          .length || 1
+                      }
+                    >
+                      {category}
+                    </th>
+                  );
+                else return <></>;
               })}
             </tr>
           </thead>
@@ -105,7 +122,15 @@ const ViewGrades: React.FC<Props> = ({
               return (
                 <tr key={student}>
                   <td>{student}</td>
-                  {}
+                  <td>100</td>
+                  <td>100</td>
+                  {getCategories.map((category) => {
+                    return getAssignments(getQuarter, getSubject, category).map(
+                      (assignment) => {
+                        return <td>{assignment}</td>;
+                      }
+                    );
+                  })}
                 </tr>
               );
             })}

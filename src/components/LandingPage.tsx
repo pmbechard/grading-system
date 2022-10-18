@@ -11,6 +11,11 @@ interface Props {
   setCategoriesForSubject: (subject: string) => Promise<void>;
   setStudentsBySubject: (subject: string) => Promise<void>;
   getStudents: string[];
+  getAssignments: (
+    quarter: string,
+    subject: string,
+    category?: string
+  ) => string[];
 }
 
 const LandingPage: React.FC<Props> = ({
@@ -21,6 +26,7 @@ const LandingPage: React.FC<Props> = ({
   setCategoriesForSubject,
   setStudentsBySubject,
   getStudents,
+  getAssignments
 }) => {
   const [getTab, setTab] = useState<string>('view');
 
@@ -68,6 +74,7 @@ const LandingPage: React.FC<Props> = ({
             getCategories={getCategories}
             handleSubjectChange={handleSubjectChange}
             getStudents={getStudents}
+            getAssignments={getAssignments}
           />
         )}
         {getTab === 'enter' && (

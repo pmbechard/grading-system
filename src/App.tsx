@@ -56,6 +56,27 @@ function App() {
     setStudents(studentList);
   };
 
+  const getAssignments = (
+    quarter: string,
+    subject: string,
+    category: string = 'All Categories'
+  ): string[] => {
+    quarter = quarter.slice(1);
+    const assignmentsList: string[] = [];
+    subjects.classes
+      .filter((item) => item.subject === subject)[0]
+      .categories.forEach((cat) => {
+        if (cat.category === category || category === 'All Categories') {
+          cat.assignments.forEach((assignment) => {
+            if (assignment.quarter.includes(quarter)) {
+              assignmentsList.push(assignment.name);
+            }
+          });
+        }
+      });
+    return assignmentsList;
+  };
+
   return (
     <>
       <Header />
@@ -68,6 +89,7 @@ function App() {
           setCategoriesForSubject={setCategoriesForSubject}
           setStudentsBySubject={setStudentsBySubject}
           getStudents={getStudents}
+          getAssignments={getAssignments}
         />
       ) : (
         <div className='log-in-area'>
