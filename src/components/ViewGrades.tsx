@@ -60,10 +60,7 @@ const ViewGrades: React.FC<Props> = ({
         </option>
         {getSubjects.map((subject) => {
           return (
-            <option
-              key={subject.replaceAll(' ', '-').toLowerCase()}
-              value={subject}
-            >
+            <option key={subject} value={subject}>
               {subject}
             </option>
           );
@@ -81,10 +78,7 @@ const ViewGrades: React.FC<Props> = ({
         <option value='All Categories'>All Categories</option>
         {getCategories.map((category) => {
           return (
-            <option
-              key={category.replaceAll(' ', '-').toLowerCase()}
-              value={category}
-            >
+            <option key={category} value={category}>
               {category}
             </option>
           );
@@ -94,9 +88,11 @@ const ViewGrades: React.FC<Props> = ({
         <table>
           <thead>
             <tr>
-              <th scope='col'>Name</th>
-              <th>Annual Total</th>
-              <th>Quarterly Total</th>
+              <th scope='col' rowSpan={2}>
+                Name
+              </th>
+              <th rowSpan={2}>Annual Total</th>
+              <th rowSpan={2}>Quarterly Total</th>
               {getCategories.map((category) => {
                 if (
                   categoryRef.current?.value === category ||
@@ -112,7 +108,6 @@ const ViewGrades: React.FC<Props> = ({
                       {category}
                     </th>
                   );
-                else return <></>;
               })}
             </tr>
           </thead>
@@ -133,9 +128,13 @@ const ViewGrades: React.FC<Props> = ({
                         getSubject,
                         category
                       ).map((assignment) => {
-                        return <td>{assignment}</td>;
+                        return (
+                          <td key={`${category}-${assignment}`}>
+                            {assignment}
+                          </td>
+                        );
                       });
-                    } else return <></>;
+                    }
                   })}
                 </tr>
               );

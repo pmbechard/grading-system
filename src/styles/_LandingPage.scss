@@ -17,6 +17,7 @@
   }
 
   .landing-page-options-area {
+    @include tableStyle();
     @include fCentre(column);
     justify-content: flex-start;
     align-items: center;
