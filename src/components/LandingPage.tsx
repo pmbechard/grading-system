@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import EnterGrades from './EnterGrades';
+import Student from './interfaces/StudentInterface';
 import ManageAssignments from './ManageAssignments';
 import ViewGrades from './ViewGrades';
 
@@ -16,6 +17,7 @@ interface Props {
     subject: string,
     category?: string
   ) => string[];
+  getStudentObj: (name: string) => Student;
 }
 
 const LandingPage: React.FC<Props> = ({
@@ -26,7 +28,8 @@ const LandingPage: React.FC<Props> = ({
   setCategoriesForSubject,
   setStudentsBySubject,
   getStudents,
-  getAssignments
+  getAssignments,
+  getStudentObj,
 }) => {
   const [getTab, setTab] = useState<string>('view');
 
@@ -75,6 +78,7 @@ const LandingPage: React.FC<Props> = ({
             handleSubjectChange={handleSubjectChange}
             getStudents={getStudents}
             getAssignments={getAssignments}
+            getStudentObj={getStudentObj}
           />
         )}
         {getTab === 'enter' && (

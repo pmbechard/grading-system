@@ -1,5 +1,5 @@
 header {
-  background-color: rgb(32, 132, 68);
+  background-color: #333333;
   color: white;
   height: 15vh;
   display: flex;
@@ -16,7 +16,7 @@ header {
 .landing-page-container button {
   border-radius: 8px;
   border: none;
-  background-color: #373adb;
+  background-color: #1f3a71;
   color: white;
   cursor: pointer;
   transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
@@ -36,7 +36,7 @@ header {
   background-color: rgb(219, 219, 219);
 }
 .landing-page-container .user-info-area button {
-  background-color: rgb(195, 35, 35);
+  background-color: rgb(160, 36, 36);
 }
 .landing-page-container .landing-page-options-area {
   display: flex;
@@ -88,7 +88,7 @@ header {
   color: black;
 }
 .landing-page-container .landing-page-options-area .landing-page-tabs .disabled {
-  background-color: #373adb;
+  background-color: #1f3a71;
   pointer-events: none;
   transform: scaleY(1.1);
   color: white;
@@ -154,7 +154,7 @@ footer {
 .log-in-area button {
   border-radius: 8px;
   border: none;
-  background-color: #373adb;
+  background-color: #1f3a71;
   color: white;
   cursor: pointer;
   transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;

@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import Student from './interfaces/StudentInterface';
 
 interface Props {
   getSubjects: string[];
@@ -10,6 +11,7 @@ interface Props {
     subject: string,
     category?: string
   ) => string[];
+  getStudentObj: (name: string) => Student;
 }
 
 const ViewGrades: React.FC<Props> = ({
@@ -18,6 +20,7 @@ const ViewGrades: React.FC<Props> = ({
   handleSubjectChange,
   getStudents,
   getAssignments,
+  getStudentObj,
 }) => {
   const [getQuarter, setQuarter] = useState<string>('Select a Quarter');
   const [getSubject, setSubject] = useState<string>('Select a Subject');
@@ -114,29 +117,48 @@ const ViewGrades: React.FC<Props> = ({
           <tbody>
             {getStudents.map((student) => {
               return (
-                <tr key={student}>
-                  <td>{student}</td>
-                  <td>100</td>
-                  <td>100</td>
-                  {getCategories.map((category) => {
-                    if (
-                      category === getCategory ||
-                      getCategory === 'All Categories'
-                    ) {
-                      return getAssignments(
-                        getQuarter,
-                        getSubject,
-                        category
-                      ).map((assignment) => {
-                        return (
-                          <td key={`${category}-${assignment}`}>
-                            {assignment}
-                          </td>
-                        );
-                      });
-                    }
-                  })}
-                </tr>
+                <>
+                  <tr key={student}>
+                    <td rowSpan={2}>{student}</td>
+                    <td rowSpan={2}>100</td>
+                    <td rowSpan={2}>100</td>
+                    {getCategories.map((category) => {
+                      if (
+                        category === getCategory ||
+                        getCategory === 'All Categories'
+                      ) {
+                        return getAssignments(
+                          getQuarter,
+                          getSubject,
+                          category
+                        ).map((assignment) => {
+                          return (
+                            <td key={`${category}-${assignment}`}>
+                              {assignment}
+                            </td>
+                          );
+                        });
+                      }
+                    })}
+                  </tr>
+                  <tr key={`${student}-grades`}>
+                    {getStudentObj(student).grades.map((grade) => {
+                      if (getSubject === grade.class) {
+                        return grade.assignments.map((assignment) => {
+                          if (
+                            assignment.category === getCategory ||
+                            getCategory === 'All Categories'
+                          )
+                            return (
+                              <td key={`${assignment}-${assignment.grade}`}>
+                                {assignment.grade}
+                              </td>
+                            );
+                        });
+                      }
+                    })}
+                  </tr>
+                </>
               );
             })}
           </tbody>

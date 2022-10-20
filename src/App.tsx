@@ -10,6 +10,7 @@ import students from './data/students.json';
 import teachers from './data/teacher.json';
 
 import Subject from './components/interfaces/SubjectInterface';
+import Student from './components/interfaces/StudentInterface';
 
 function App() {
   const [getUser, setUser] = useState<string>('');
@@ -77,6 +78,9 @@ function App() {
     return assignmentsList;
   };
 
+  const getStudentObj = (name: string): Student => {
+    return students.students.filter((student => student.name === name))[0] as Student;
+  }
   return (
     <>
       <Header />
@@ -90,6 +94,7 @@ function App() {
           setStudentsBySubject={setStudentsBySubject}
           getStudents={getStudents}
           getAssignments={getAssignments}
+          getStudentObj={getStudentObj}
         />
       ) : (
         <div className='log-in-area'>
