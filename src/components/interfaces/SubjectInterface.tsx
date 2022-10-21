@@ -3,5 +3,6 @@ export default interface SubjectInterface {
   categories: {
     category: string;
     assignments: { name: string; quarter: string[] }[];
+    weight: string;
   }[];
 }

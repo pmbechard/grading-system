@@ -10,7 +10,8 @@
             { "name": "Ch 2 Test", "quarter": ["1"] },
             { "name": "Ch 3 Test", "quarter": ["2"] },
             { "name": "Ch 4 Test", "quarter": ["2"] }
-          ]
+          ],
+          "weight": "75"
         },
         {
           "category": "Homework",
@@ -19,7 +20,8 @@
             { "name": "Q2 HW", "quarter": ["2"] },
             { "name": "Q3 HW", "quarter": ["3"] },
             { "name": "Q4 HW", "quarter": ["4"] }
-          ]
+          ],
+          "weight": "25"
         }
       ]
     },
@@ -33,7 +35,8 @@
             { "name": "Check 1", "quarter": ["1"] },
             { "name": "Check 2", "quarter": ["2"] },
             { "name": "Check 3", "quarter": ["3"] }
-          ]
+          ],
+          "weight": "100"
         }
       ]
     }
