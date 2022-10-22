@@ -1,7 +1,7 @@
 {
   "students": [
     {
-      "name": "Jack",
+      "name": "Jack Smith",
       "grades": [
         {
           "class": "Geometry",
@@ -30,7 +30,7 @@
     },
 
     {
-      "name": "Jill",
+      "name": "Jill Johnson",
       "grades": [
         {
           "class": "AP CS A",
@@ -40,6 +40,29 @@
               "category": "Progress Checks",
               "grade": "90",
               "date": "22 Sep 2022"
+            }
+          ]
+        },
+        {
+          "class": "Geometry",
+          "assignments": [
+            {
+              "name": "Ch 1 Test",
+              "category": "Chapter Tests",
+              "grade": "90",
+              "date": "22 Sep 2022"
+            },
+            {
+              "name": "Ch 2 Test",
+              "category": "Chapter Tests",
+              "grade": "85",
+              "date": "22 Oct 2022"
+            },
+            {
+              "name": "Q1 HW",
+              "category": "Homework",
+              "grade": "95",
+              "date": "30 Sep 2022"
             }
           ]
         }

@@ -78,9 +78,33 @@ function App() {
     return assignmentsList;
   };
 
+  const getQuarterlyGrade = (
+    student: string,
+    subject: string,
+    quarter: string
+  ) => {
+    const studentAssignments = students.students
+      .filter((item) => item.name === student)[0]
+      .grades.filter((grade) => grade.class === subject)[0].assignments;
+
+    let subjectAssignments: string[];
+    subjects.classes
+      .filter((item) => item.subject === subject)[0]
+      .categories.forEach((category) => {
+        category.assignments.forEach((assignment) => {
+          if (assignment.quarter.includes(quarter))
+            subjectAssignments.push(assignment.name);
+        });
+      });
+
+    // FIXME: move all grading data into subjects and simplify student JSON ?
+  };
+
   const getStudentObj = (name: string): Student => {
-    return students.students.filter((student => student.name === name))[0] as Student;
-  }
+    return students.students.filter(
+      (student) => student.name === name
+    )[0] as Student;
+  };
   return (
     <>
       <Header />
