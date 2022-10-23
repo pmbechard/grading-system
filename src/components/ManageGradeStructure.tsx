@@ -54,7 +54,7 @@ const ManageGradeStructure: React.FC<Props> = ({
         </div>
         <div className='manage-add-category-assignment'>
           <button>Manage Categories</button>
-          <button>Manage Grade Structure</button>
+          <button>Manage Assignments</button>
         </div>
       </div>
     </div>

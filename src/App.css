@@ -96,7 +96,15 @@ header {
 
 .view-grades-container select {
   padding: 10px 20px;
-  width: 300px;
+  width: 200px;
+}
+
+.enter-grades-container select {
+  padding: 10px 20px;
+  width: 200px;
+}
+.enter-grades-container button {
+  margin: 0 20px;
 }
 
 .manage-grade-structure-container {
