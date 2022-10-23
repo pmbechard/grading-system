@@ -1,4 +1,4 @@
-.manage-assignments-container {
+.manage-grade-structure-container {
   width: max(60%, 350px);
 
   .manage-options-area {
@@ -25,6 +25,14 @@
       select {
         padding: 10px 20px;
         width: 250px;
+      }
+    }
+
+    .manage-add-category-assignment {
+      margin: 20px 0;
+
+      button {
+        margin: 0 20px;
       }
     }
   }

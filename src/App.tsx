@@ -62,20 +62,25 @@ function App() {
     subject: string,
     category: string = 'All Categories'
   ): string[] => {
-    quarter = quarter.slice(1);
-    const assignmentsList: string[] = [];
-    subjects.classes
-      .filter((item) => item.subject === subject)[0]
-      .categories.forEach((cat) => {
-        if (cat.category === category || category === 'All Categories') {
-          cat.assignments.forEach((assignment) => {
-            if (assignment.quarter.includes(quarter)) {
-              assignmentsList.push(assignment.name);
-            }
-          });
-        }
-      });
-    return assignmentsList;
+    if (!quarter || !subject || !category) return [];
+    try {
+      quarter = quarter.slice(1);
+      const assignmentsList: string[] = [];
+      subjects.classes
+        .filter((item) => item.subject === subject)[0]
+        .categories.forEach((cat) => {
+          if (cat.category === category || category === 'All Categories') {
+            cat.assignments.forEach((assignment) => {
+              if (assignment.quarter.includes(quarter)) {
+                assignmentsList.push(assignment.name);
+              }
+            });
+          }
+        });
+      return assignmentsList;
+    } catch (e) {
+      return [];
+    }
   };
 
   const getQuarterlyGrade = (

@@ -31,7 +31,7 @@ const ViewGrades: React.FC<Props> = ({
   const categoryRef = useRef<HTMLSelectElement>(null);
 
   return (
-    <div className='enter-grades-container'>
+    <div className='view-grades-container'>
       <select
         id='quarter-selection'
         defaultValue=''

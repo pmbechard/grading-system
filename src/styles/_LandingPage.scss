@@ -26,7 +26,7 @@
     padding: 40px;
 
     .landing-page-tabs {
-      width: max(80%, 350px);
+      width: max(350px, 80%);
       @include fCentre();
       justify-content: stretch;
 

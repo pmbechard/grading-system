@@ -5,7 +5,7 @@ interface Props {
   handleSubjectChange: (subject: string) => void;
 }
 
-const ManageAssignments: React.FC<Props> = ({
+const ManageGradeStructure: React.FC<Props> = ({
   getSubjects,
   handleSubjectChange,
 }) => {
@@ -13,7 +13,7 @@ const ManageAssignments: React.FC<Props> = ({
   const categoryRef = useRef<HTMLSelectElement>(null);
 
   return (
-    <div className='manage-assignments-container'>
+    <div className='manage-grade-structure-container'>
       <div className='manage-options-area'>
         <div className='manage-quarter-selection-area'>
           <span className='label'>Apply to:</span>
@@ -52,9 +52,13 @@ const ManageAssignments: React.FC<Props> = ({
             })}
           </select>
         </div>
+        <div className='manage-add-category-assignment'>
+          <button>Manage Categories</button>
+          <button>Manage Grade Structure</button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default ManageAssignments;
+export default ManageGradeStructure;

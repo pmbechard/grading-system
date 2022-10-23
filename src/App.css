@@ -74,7 +74,7 @@ header {
   color: white;
 }
 .landing-page-container .landing-page-options-area .landing-page-tabs {
-  width: max(80%, 350px);
+  width: max(350px, 80%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,15 +94,15 @@ header {
   color: white;
 }
 
-.enter-grades-container select {
+.view-grades-container select {
   padding: 10px 20px;
   width: 300px;
 }
 
-.manage-assignments-container {
+.manage-grade-structure-container {
   width: max(60%, 350px);
 }
-.manage-assignments-container .manage-options-area {
+.manage-grade-structure-container .manage-options-area {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,19 +110,25 @@ header {
   justify-content: space-around;
   flex-wrap: wrap;
 }
-.manage-assignments-container .manage-options-area .manage-quarter-selection-area .label {
+.manage-grade-structure-container .manage-options-area .manage-quarter-selection-area .label {
   font-weight: bold;
   margin-right: 10px;
 }
-.manage-assignments-container .manage-options-area .manage-quarter-selection-area label {
+.manage-grade-structure-container .manage-options-area .manage-quarter-selection-area label {
   margin-right: 20px;
 }
-.manage-assignments-container .manage-options-area .manage-quarter-selection-area input {
+.manage-grade-structure-container .manage-options-area .manage-quarter-selection-area input {
   margin-right: 5px;
 }
-.manage-assignments-container .manage-options-area .manage-subject-selection select {
+.manage-grade-structure-container .manage-options-area .manage-subject-selection select {
   padding: 10px 20px;
   width: 250px;
+}
+.manage-grade-structure-container .manage-options-area .manage-add-category-assignment {
+  margin: 20px 0;
+}
+.manage-grade-structure-container .manage-options-area .manage-add-category-assignment button {
+  margin: 0 20px;
 }
 
 footer {

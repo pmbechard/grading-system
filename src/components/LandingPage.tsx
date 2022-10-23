@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import EnterGrades from './EnterGrades';
 import Student from './interfaces/StudentInterface';
-import ManageAssignments from './ManageAssignments';
+import ManageGradeStructure from './ManageGradeStructure';
 import ViewGrades from './ViewGrades';
 
 interface Props {
@@ -67,7 +67,7 @@ const LandingPage: React.FC<Props> = ({
             className={`tab ${getTab === 'manage' && 'disabled'}`}
             onClick={() => handleTabSwitch('manage')}
           >
-            Manage Assignments
+            Manage Grade Structure
           </button>
         </div>
 
@@ -86,10 +86,11 @@ const LandingPage: React.FC<Props> = ({
             getSubjects={getSubjects}
             getCategories={getCategories}
             handleSubjectChange={handleSubjectChange}
+            getAssignments={getAssignments}
           />
         )}
         {getTab === 'manage' && (
-          <ManageAssignments
+          <ManageGradeStructure
             getSubjects={getSubjects}
             handleSubjectChange={handleSubjectChange}
           />
