@@ -37,7 +37,6 @@ const EnterGrades: React.FC<Props> = ({
   const assignmentRef = useRef<HTMLSelectElement>(null);
 
   const handleGetGrades = () => {
-    // get students in the class
     const studentList = getStudentsBySubject(getSubject);
     let studentObjList: Student[] = [];
     studentList.forEach((student) => {
@@ -45,28 +44,29 @@ const EnterGrades: React.FC<Props> = ({
     });
 
     let studentGradeObjList: { name: string; grade: string }[] = [];
-    // check for grade entries
     studentObjList.forEach((student) => {
       studentGradeObjList.push({
         name: student.name,
         grade: getGrade(student.name, getAssignment),
       });
     });
-    // display editable grades in table
     setStudentGrades(studentGradeObjList);
-    // include save button for updates
   };
 
   const getGrade = (name: string, assignment: string) => {
-    return (
-      getStudentObj(name).grades.map(
-        (grade) =>
-          grade.assignments.filter(
-            (assignment) => assignment.name === getAssignment
-          )[0].grade
-      )[0] || '-'
-    );
+    try {
+      const studentGrades = getStudentObj(name).grades.filter((grade) => {
+        return grade.class === getSubject;
+      })[0];
+      return studentGrades.assignments.filter(
+        (item) => item.name === assignment
+      )[0].grade;
+    } catch (e) {
+      return '-';
+    }
   };
+
+  const handleGradeChange = () => {};
 
   return (
     <div className='enter-grades-container'>
@@ -134,7 +134,7 @@ const EnterGrades: React.FC<Props> = ({
         disabled={getCategory === 'Select a Category'}
         defaultValue='Select an Assignment'
         onChange={() =>
-          setAssignment(categoryRef.current?.value || 'Select an Assignment')
+          setAssignment(assignmentRef.current?.value || 'Select an Assignment')
         }
       >
         <option disabled value='Select an Assignment'>
@@ -157,17 +157,33 @@ const EnterGrades: React.FC<Props> = ({
         Enter Grades
       </button>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Grade</th>
-          </tr>
-        </thead>
-      </table>
-      {getStudentGrades?.map((fuck) => (
-        <p>fuck.name</p>
-      ))}
+      {getStudentGrades && (
+        <>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              {getStudentGrades?.map((student) => (
+                <tr key={`${student.name}-${student.grade}`}>
+                  <td>{student.name}</td>
+                  <td>
+                    <input
+                      type='text'
+                      value={student.grade}
+                      onChange={handleGradeChange}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button>Save</button>
+        </>
+      )}
     </div>
   );
 };
