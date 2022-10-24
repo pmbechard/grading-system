@@ -18,6 +18,7 @@ interface Props {
     category?: string
   ) => string[];
   getStudentObj: (name: string) => Student;
+  getStudentsBySubject: (subject: string) => string[];
 }
 
 const LandingPage: React.FC<Props> = ({
@@ -30,6 +31,7 @@ const LandingPage: React.FC<Props> = ({
   getStudents,
   getAssignments,
   getStudentObj,
+  getStudentsBySubject,
 }) => {
   const [getTab, setTab] = useState<string>('view');
 
@@ -87,6 +89,8 @@ const LandingPage: React.FC<Props> = ({
             getCategories={getCategories}
             handleSubjectChange={handleSubjectChange}
             getAssignments={getAssignments}
+            getStudentsBySubject={getStudentsBySubject}
+            getStudentObj={getStudentObj}
           />
         )}
         {getTab === 'manage' && (

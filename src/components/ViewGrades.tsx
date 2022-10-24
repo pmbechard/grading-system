@@ -32,61 +32,63 @@ const ViewGrades: React.FC<Props> = ({
 
   return (
     <div className='view-grades-container'>
-      <select
-        id='quarter-selection'
-        defaultValue=''
-        ref={quarterRef}
-        onChange={() =>
-          setQuarter(quarterRef.current?.value || 'Select a Quarter')
-        }
-      >
-        <option disabled value=''>
-          Select a Quarter
-        </option>
-        <option value='q1'>Q1</option>
-        <option value='q2'>Q2</option>
-        <option value='q3'>Q3</option>
-        <option value='q4'>Q4</option>
-      </select>
-      <select
-        id='subject-selection'
-        ref={subjectRef}
-        defaultValue=''
-        onChange={() => {
-          handleSubjectChange(subjectRef.current?.value || '');
-          setSubject(subjectRef.current?.value || 'Select a Subject');
-        }}
-        disabled={getQuarter === 'Select a Quarter'}
-      >
-        <option disabled value=''>
-          Select a Subject
-        </option>
-        {getSubjects.map((subject) => {
-          return (
-            <option key={subject} value={subject}>
-              {subject}
-            </option>
-          );
-        })}
-      </select>
-      <select
-        id='category-selection'
-        ref={categoryRef}
-        defaultValue='All Categories'
-        onChange={() =>
-          setCategory(categoryRef.current?.value || 'All Categories')
-        }
-        disabled={getSubject === 'Select a Subject'}
-      >
-        <option value='All Categories'>All Categories</option>
-        {getCategories.map((category) => {
-          return (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          );
-        })}
-      </select>
+      <div className='view-grades-options'>
+        <select
+          id='quarter-selection'
+          defaultValue=''
+          ref={quarterRef}
+          onChange={() =>
+            setQuarter(quarterRef.current?.value || 'Select a Quarter')
+          }
+        >
+          <option disabled value=''>
+            Select a Quarter
+          </option>
+          <option value='q1'>Q1</option>
+          <option value='q2'>Q2</option>
+          <option value='q3'>Q3</option>
+          <option value='q4'>Q4</option>
+        </select>
+        <select
+          id='subject-selection'
+          ref={subjectRef}
+          defaultValue=''
+          onChange={() => {
+            handleSubjectChange(subjectRef.current?.value || '');
+            setSubject(subjectRef.current?.value || 'Select a Subject');
+          }}
+          disabled={getQuarter === 'Select a Quarter'}
+        >
+          <option disabled value=''>
+            Select a Subject
+          </option>
+          {getSubjects.map((subject) => {
+            return (
+              <option key={subject} value={subject}>
+                {subject}
+              </option>
+            );
+          })}
+        </select>
+        <select
+          id='category-selection'
+          ref={categoryRef}
+          defaultValue='All Categories'
+          onChange={() =>
+            setCategory(categoryRef.current?.value || 'All Categories')
+          }
+          disabled={getSubject === 'Select a Subject'}
+        >
+          <option value='All Categories'>All Categories</option>
+          {getCategories.map((category) => {
+            return (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            );
+          })}
+        </select>
+      </div>
       {subjectRef.current?.value && (
         <table>
           <thead>
@@ -150,7 +152,9 @@ const ViewGrades: React.FC<Props> = ({
                             getCategory === 'All Categories'
                           )
                             return (
-                              <td key={`${assignment}-${assignment.grade}`}>
+                              <td
+                                key={`${student}-${assignment}-${assignment.grade}`}
+                              >
                                 {assignment.grade}
                               </td>
                             );

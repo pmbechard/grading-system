@@ -22,6 +22,12 @@
   color: white;
   @include hoverActive();
   padding: 10px 20px;
+
+  &:disabled {
+    pointer-events: none;
+    cursor: none;
+    opacity: 0.6;
+  }
 }
 
 @mixin tableStyle() {

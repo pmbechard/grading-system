@@ -26,6 +26,11 @@ header {
   opacity: 0.9;
   transform: scale(1.01);
 }
+.landing-page-container button:disabled {
+  pointer-events: none;
+  cursor: none;
+  opacity: 0.6;
+}
 .landing-page-container .user-info-area {
   display: flex;
   justify-content: center;
@@ -94,6 +99,13 @@ header {
   color: white;
 }
 
+.view-grades-container {
+  width: 80vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 .view-grades-container select {
   padding: 10px 20px;
   width: 200px;
@@ -179,4 +191,9 @@ footer {
 .log-in-area button:hover {
   opacity: 0.9;
   transform: scale(1.01);
+}
+.log-in-area button:disabled {
+  pointer-events: none;
+  cursor: none;
+  opacity: 0.6;
 }/*# sourceMappingURL=App.css.map */

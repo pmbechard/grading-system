@@ -57,6 +57,18 @@ function App() {
     setStudents(studentList);
   };
 
+  const getStudentsBySubject = (subject: string): string[] => {
+    const studentList: string[] = [];
+
+    students.students.forEach((student) => {
+      student.grades.forEach((grade) => {
+        if (grade.class === subject) studentList.push(student.name);
+      });
+    });
+
+    return studentList;
+  };
+
   const getAssignments = (
     quarter: string,
     subject: string,
@@ -110,6 +122,7 @@ function App() {
       (student) => student.name === name
     )[0] as Student;
   };
+
   return (
     <>
       <Header />
@@ -124,6 +137,7 @@ function App() {
           getStudents={getStudents}
           getAssignments={getAssignments}
           getStudentObj={getStudentObj}
+          getStudentsBySubject={getStudentsBySubject}
         />
       ) : (
         <div className='log-in-area'>

@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import Student from './interfaces/StudentInterface';
 
 interface Props {
   getSubjects: string[];
@@ -9,6 +10,8 @@ interface Props {
     subject: string,
     category?: string
   ) => string[];
+  getStudentsBySubject: (subject: string) => string[];
+  getStudentObj: (name: string) => Student;
 }
 
 const EnterGrades: React.FC<Props> = ({
@@ -16,15 +19,54 @@ const EnterGrades: React.FC<Props> = ({
   getCategories,
   handleSubjectChange,
   getAssignments,
+  getStudentsBySubject,
+  getStudentObj,
 }) => {
   const [getQuarter, setQuarter] = useState<string>('Select a Quarter');
   const [getSubject, setSubject] = useState<string>('Select a Subject');
   const [getCategory, setCategory] = useState<string>('Select a Category');
+  const [getAssignment, setAssignment] = useState<string>(
+    'Select an Assignment'
+  );
+  const [getStudentGrades, setStudentGrades] =
+    useState<{ name: string; grade: string }[]>();
 
   const quarterRef = useRef<HTMLSelectElement>(null);
   const subjectRef = useRef<HTMLSelectElement>(null);
   const categoryRef = useRef<HTMLSelectElement>(null);
   const assignmentRef = useRef<HTMLSelectElement>(null);
+
+  const handleGetGrades = () => {
+    // get students in the class
+    const studentList = getStudentsBySubject(getSubject);
+    let studentObjList: Student[] = [];
+    studentList.forEach((student) => {
+      studentObjList.push(getStudentObj(student));
+    });
+
+    let studentGradeObjList: { name: string; grade: string }[] = [];
+    // check for grade entries
+    studentObjList.forEach((student) => {
+      studentGradeObjList.push({
+        name: student.name,
+        grade: getGrade(student.name, getAssignment),
+      });
+    });
+    // display editable grades in table
+    setStudentGrades(studentGradeObjList);
+    // include save button for updates
+  };
+
+  const getGrade = (name: string, assignment: string) => {
+    return (
+      getStudentObj(name).grades.map(
+        (grade) =>
+          grade.assignments.filter(
+            (assignment) => assignment.name === getAssignment
+          )[0].grade
+      )[0] || '-'
+    );
+  };
 
   return (
     <div className='enter-grades-container'>
@@ -91,6 +133,9 @@ const EnterGrades: React.FC<Props> = ({
         ref={assignmentRef}
         disabled={getCategory === 'Select a Category'}
         defaultValue='Select an Assignment'
+        onChange={() =>
+          setAssignment(categoryRef.current?.value || 'Select an Assignment')
+        }
       >
         <option disabled value='Select an Assignment'>
           Select an Assignment
@@ -105,7 +150,24 @@ const EnterGrades: React.FC<Props> = ({
           }
         )}
       </select>
-      <button>Enter Grades</button>
+      <button
+        disabled={getAssignment === 'Select an Assignment'}
+        onClick={handleGetGrades}
+      >
+        Enter Grades
+      </button>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Grade</th>
+          </tr>
+        </thead>
+      </table>
+      {getStudentGrades?.map((fuck) => (
+        <p>fuck.name</p>
+      ))}
     </div>
   );
 };

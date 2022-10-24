@@ -1,4 +1,6 @@
 .view-grades-container {
+  width: 80vw;
+  @include fCentre(column);
   select {
     padding: 10px 20px;
     width: 200px;
