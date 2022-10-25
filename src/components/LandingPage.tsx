@@ -96,6 +96,7 @@ const LandingPage: React.FC<Props> = ({
         {getTab === 'manage' && (
           <ManageGradeStructure
             getSubjects={getSubjects}
+            getCategories={getCategories}
             handleSubjectChange={handleSubjectChange}
           />
         )}

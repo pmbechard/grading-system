@@ -66,7 +66,15 @@ const EnterGrades: React.FC<Props> = ({
     }
   };
 
-  const handleGradeChange = () => {};
+  const handleGradeChange = (name: string, grade: string) => {
+    getStudentGrades?.forEach((student) => {
+      if (student.name === name) student.grade = grade;
+    });
+  };
+
+  const commitGradeChanges = () => {
+    // FIXME: push changes to db
+  };
 
   return (
     <div className='enter-grades-container'>
@@ -173,15 +181,17 @@ const EnterGrades: React.FC<Props> = ({
                   <td>
                     <input
                       type='text'
-                      value={student.grade}
-                      onChange={handleGradeChange}
+                      defaultValue={student.grade}
+                      onChange={(e) =>
+                        handleGradeChange(student.name, e.currentTarget.value)
+                      }
                     />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <button>Save</button>
+          <button onClick={commitGradeChanges}>Save</button>
         </>
       )}
     </div>
