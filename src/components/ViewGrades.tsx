@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Student from './Interfaces/StudentInterface';
+import CategoryDropdown from './MenuOptions/CategoryDropdown';
 import QuarterDropdown from './MenuOptions/QuarterDropdown';
 import SubjectDropdown from './MenuOptions/SubjectDropdown';
 
@@ -28,8 +29,6 @@ const ViewGrades: React.FC<Props> = ({
   const [getSubject, setSubject] = useState<string>('Select a Subject');
   const [getCategory, setCategory] = useState<string>('All Categories');
 
-  const categoryRef = useRef<HTMLSelectElement>(null);
-
   return (
     <div className='view-grades-container'>
       <div className='view-grades-options'>
@@ -41,7 +40,12 @@ const ViewGrades: React.FC<Props> = ({
           disabled={getQuarter === 'Select a Quarter'}
           setSubject={setSubject}
         />
-        <select
+        <CategoryDropdown
+          getCategories={getCategories}
+          setCategory={setCategory}
+          disabled={getSubject === 'Select a Subject'}
+        />
+        {/* <select
           id='category-selection'
           ref={categoryRef}
           defaultValue='All Categories'
@@ -58,7 +62,7 @@ const ViewGrades: React.FC<Props> = ({
               </option>
             );
           })}
-        </select>
+        </select> */}
       </div>
       {getSubject !== 'Select a Subject' && (
         <table>
@@ -71,8 +75,8 @@ const ViewGrades: React.FC<Props> = ({
               <th rowSpan={2}>Quarterly Total</th>
               {getCategories.map((category) => {
                 if (
-                  categoryRef.current?.value === category ||
-                  categoryRef.current?.value === 'All Categories'
+                  getCategory === category ||
+                  getCategory === 'All Categories'
                 )
                   return (
                     <th

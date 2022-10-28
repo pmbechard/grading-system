@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Student from './Interfaces/StudentInterface';
+import CategoryDropdown from './MenuOptions/CategoryDropdown';
 import QuarterDropdown from './MenuOptions/QuarterDropdown';
 import SubjectDropdown from './MenuOptions/SubjectDropdown';
 
@@ -87,26 +88,11 @@ const EnterGrades: React.FC<Props> = ({
         disabled={getQuarter === 'Select a Quarter'}
         setSubject={setSubject}
       />
-      <select
-        id='category-selection'
-        ref={categoryRef}
-        defaultValue='Select a Category'
-        onChange={() =>
-          setCategory(categoryRef.current?.value || 'Select a Category')
-        }
+      <CategoryDropdown
+        getCategories={getCategories}
+        setCategory={setCategory}
         disabled={getSubject === 'Select a Subject'}
-      >
-        <option value='Select a Category' disabled>
-          Select a Category
-        </option>
-        {getCategories.map((category) => {
-          return (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          );
-        })}
-      </select>
+      />
 
       <select
         id='assignment-selection'
