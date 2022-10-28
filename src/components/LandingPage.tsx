@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import EnterGrades from './EnterGrades';
-import Student from './interfaces/StudentInterface';
+import Student from './Interfaces/StudentInterface';
 import ManageGradeStructure from './ManageGradeStructure';
 import ViewGrades from './ViewGrades';
 

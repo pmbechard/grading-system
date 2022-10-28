@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
-import Student from './interfaces/StudentInterface';
-import SubjectDropdown from './SubjectDropdown';
+import Student from './Interfaces/StudentInterface';
+import QuarterDropdown from './MenuOptions/QuarterDropdown';
+import SubjectDropdown from './MenuOptions/SubjectDropdown';
 
 interface Props {
   getSubjects: string[];
@@ -27,29 +28,13 @@ const ViewGrades: React.FC<Props> = ({
   const [getSubject, setSubject] = useState<string>('Select a Subject');
   const [getCategory, setCategory] = useState<string>('All Categories');
 
-  const quarterRef = useRef<HTMLSelectElement>(null);
-  const subjectRef = useRef<HTMLSelectElement>(null);
   const categoryRef = useRef<HTMLSelectElement>(null);
 
   return (
     <div className='view-grades-container'>
       <div className='view-grades-options'>
-        <select
-          id='quarter-selection'
-          defaultValue=''
-          ref={quarterRef}
-          onChange={() =>
-            setQuarter(quarterRef.current?.value || 'Select a Quarter')
-          }
-        >
-          <option disabled value=''>
-            Select a Quarter
-          </option>
-          <option value='q1'>Q1</option>
-          <option value='q2'>Q2</option>
-          <option value='q3'>Q3</option>
-          <option value='q4'>Q4</option>
-        </select>
+        <QuarterDropdown setQuarter={setQuarter} />
+
         <SubjectDropdown
           handleSubjectChange={handleSubjectChange}
           getSubjects={getSubjects}

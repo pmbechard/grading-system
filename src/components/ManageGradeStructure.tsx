@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import SubjectDropdown from './SubjectDropdown';
+import SubjectDropdown from './MenuOptions/SubjectDropdown';
 
 interface Props {
   getSubjects: string[];

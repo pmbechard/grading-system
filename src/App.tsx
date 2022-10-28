@@ -9,8 +9,8 @@ import subjects from './data/subjects.json';
 import students from './data/students.json';
 import teachers from './data/teacher.json';
 
-import Subject from './components/interfaces/SubjectInterface';
-import Student from './components/interfaces/StudentInterface';
+import Subject from './components/Interfaces/SubjectInterface';
+import Student from './components/Interfaces/StudentInterface';
 
 function App() {
   const [getUser, setUser] = useState<string>('');
