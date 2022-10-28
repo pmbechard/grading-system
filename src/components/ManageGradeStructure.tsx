@@ -11,11 +11,11 @@ const ManageGradeStructure: React.FC<Props> = ({
   handleSubjectChange,
   getCategories,
 }) => {
-  // const [getSubject, setSubject] = useState<string>('Select a Subject');
-  // const [getCategory, setCategory] = useState<string>('Select a Category');
+  const [getSubject, setSubject] = useState<string>('Select a Subject');
+  const [getCategory, setCategory] = useState<string>('Select a Category');
 
-  // const subjectRef = useRef<HTMLSelectElement>(null);
-  // const categoryRef = useRef<HTMLSelectElement>(null);
+  const subjectRef = useRef<HTMLSelectElement>(null);
+  const categoryRef = useRef<HTMLSelectElement>(null);
 
   const [getOption, setOption] = useState<string>('');
 
