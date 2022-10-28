@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Student from './Interfaces/StudentInterface';
+import AssignmentDropdown from './MenuOptions/AssignmentDropdown';
 import CategoryDropdown from './MenuOptions/CategoryDropdown';
 import QuarterDropdown from './MenuOptions/QuarterDropdown';
 import SubjectDropdown from './MenuOptions/SubjectDropdown';
@@ -33,11 +34,6 @@ const EnterGrades: React.FC<Props> = ({
   );
   const [getStudentGrades, setStudentGrades] =
     useState<{ name: string; grade: string }[]>();
-
-  const quarterRef = useRef<HTMLSelectElement>(null);
-  const subjectRef = useRef<HTMLSelectElement>(null);
-  const categoryRef = useRef<HTMLSelectElement>(null);
-  const assignmentRef = useRef<HTMLSelectElement>(null);
 
   const handleGetGrades = () => {
     const studentList = getStudentsBySubject(getSubject);
@@ -93,29 +89,11 @@ const EnterGrades: React.FC<Props> = ({
         setCategory={setCategory}
         disabled={getSubject === 'Select a Subject'}
       />
-
-      <select
-        id='assignment-selection'
-        ref={assignmentRef}
+      <AssignmentDropdown
+        setAssignment={setAssignment}
         disabled={getCategory === 'Select a Category'}
-        defaultValue='Select an Assignment'
-        onChange={() =>
-          setAssignment(assignmentRef.current?.value || 'Select an Assignment')
-        }
-      >
-        <option disabled value='Select an Assignment'>
-          Select an Assignment
-        </option>
-        {getAssignments(getQuarter, getSubject, getCategory).map(
-          (assignment) => {
-            return (
-              <option key={assignment} value={assignment}>
-                {assignment}
-              </option>
-            );
-          }
-        )}
-      </select>
+        assignmentList={getAssignments(getQuarter, getSubject, getCategory)}
+      />
       <button
         disabled={getAssignment === 'Select an Assignment'}
         onClick={handleGetGrades}

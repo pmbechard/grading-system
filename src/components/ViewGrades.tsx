@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Student from './Interfaces/StudentInterface';
 import CategoryDropdown from './MenuOptions/CategoryDropdown';
 import QuarterDropdown from './MenuOptions/QuarterDropdown';
@@ -45,24 +45,6 @@ const ViewGrades: React.FC<Props> = ({
           setCategory={setCategory}
           disabled={getSubject === 'Select a Subject'}
         />
-        {/* <select
-          id='category-selection'
-          ref={categoryRef}
-          defaultValue='All Categories'
-          onChange={() =>
-            setCategory(categoryRef.current?.value || 'All Categories')
-          }
-          disabled={getSubject === 'Select a Subject'}
-        >
-          <option value='All Categories'>All Categories</option>
-          {getCategories.map((category) => {
-            return (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            );
-          })}
-        </select> */}
       </div>
       {getSubject !== 'Select a Subject' && (
         <table>

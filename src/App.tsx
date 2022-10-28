@@ -4,7 +4,6 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import LandingPage from './components/LandingPage';
 
-// FIXME:
 import subjects from './data/subjects.json';
 import students from './data/students.json';
 import teachers from './data/teacher.json';
@@ -95,27 +94,25 @@ function App() {
     }
   };
 
-  const getQuarterlyGrade = (
-    student: string,
-    subject: string,
-    quarter: string
-  ) => {
-    const studentAssignments = students.students
-      .filter((item) => item.name === student)[0]
-      .grades.filter((grade) => grade.class === subject)[0].assignments;
+  // const getQuarterlyGrade = (
+  //   student: string,
+  //   subject: string,
+  //   quarter: string
+  // ) => {
+  //   const studentAssignments = students.students
+  //     .filter((item) => item.name === student)[0]
+  //     .grades.filter((grade) => grade.class === subject)[0].assignments;
 
-    let subjectAssignments: string[];
-    subjects.classes
-      .filter((item) => item.subject === subject)[0]
-      .categories.forEach((category) => {
-        category.assignments.forEach((assignment) => {
-          if (assignment.quarter.includes(quarter))
-            subjectAssignments.push(assignment.name);
-        });
-      });
-
-    // FIXME: move all grading data into subjects and simplify student JSON ?
-  };
+  //   let subjectAssignments: string[];
+  //   subjects.classes
+  //     .filter((item) => item.subject === subject)[0]
+  //     .categories.forEach((category) => {
+  //       category.assignments.forEach((assignment) => {
+  //         if (assignment.quarter.includes(quarter))
+  //           subjectAssignments.push(assignment.name);
+  //       });
+  //     });
+  // };
 
   const getStudentObj = (name: string): Student => {
     return students.students.filter(
