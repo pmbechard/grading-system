@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import SubjectDropdown from './SubjectDropdown';
 
 interface Props {
   getSubjects: string[];
@@ -35,6 +36,14 @@ const ManageGradeStructure: React.FC<Props> = ({
           Remove Assignments
         </button>
       </div>
+
+      <SubjectDropdown
+        handleSubjectChange={handleSubjectChange}
+        getSubjects={getSubjects}
+        disabled={false}
+        setSubject={setSubject}
+      />
+
       {getOption === 'Add Categories' && (
         <p>Subject dropdown and Quarter checkboxes</p>
       )}
