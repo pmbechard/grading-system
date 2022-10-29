@@ -70,6 +70,7 @@ const ViewGrades: React.FC<Props> = ({
                       {category}
                     </th>
                   );
+                else return <></>;
               })}
             </tr>
           </thead>
@@ -81,7 +82,7 @@ const ViewGrades: React.FC<Props> = ({
                     <td rowSpan={2}>{student}</td>
                     <td rowSpan={2}>100</td>
                     <td rowSpan={2}>100</td>
-                    {getCategories.map((category) => {
+                    {getCategories.filter((category) => {
                       if (
                         category === getCategory ||
                         getCategory === 'All Categories'
@@ -97,7 +98,7 @@ const ViewGrades: React.FC<Props> = ({
                             </td>
                           );
                         });
-                      }
+                      } else return <></>;
                     })}
                   </tr>
                   <tr key={`${student}-grades`}>
@@ -115,8 +116,9 @@ const ViewGrades: React.FC<Props> = ({
                                 {assignment.grade}
                               </td>
                             );
+                          else return <></>;
                         });
-                      }
+                      } else return <></>;
                     })}
                   </tr>
                 </>
