@@ -111,44 +111,24 @@ header {
   width: 200px;
 }
 
-.enter-grades-container select {
-  padding: 10px 20px;
-  width: 200px;
-}
 .enter-grades-container button {
   margin: 0 20px;
 }
 
-.manage-grade-structure-container {
-  width: max(60%, 350px);
-}
 .manage-grade-structure-container .manage-options-area {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
+  gap: 20px;
 }
-.manage-grade-structure-container .manage-options-area .manage-quarter-selection-area .label {
-  font-weight: bold;
-  margin-right: 10px;
+.manage-grade-structure-container .manage-options-area button {
+  margin-bottom: 20px;
 }
-.manage-grade-structure-container .manage-options-area .manage-quarter-selection-area label {
-  margin-right: 20px;
-}
-.manage-grade-structure-container .manage-options-area .manage-quarter-selection-area input {
-  margin-right: 5px;
-}
-.manage-grade-structure-container .manage-options-area .manage-subject-selection select {
+.manage-grade-structure-container .manage-dropdown-area input {
   padding: 10px 20px;
-  width: 250px;
-}
-.manage-grade-structure-container .manage-options-area .manage-add-category-assignment {
-  margin: 20px 0;
-}
-.manage-grade-structure-container .manage-options-area .manage-add-category-assignment button {
-  margin: 0 20px;
 }
 
 footer {
@@ -196,4 +176,9 @@ footer {
   pointer-events: none;
   cursor: none;
   opacity: 0.6;
+}
+
+select {
+  padding: 10px 20px;
+  width: 200px;
 }/*# sourceMappingURL=App.css.map */

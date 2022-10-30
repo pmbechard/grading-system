@@ -1,39 +1,20 @@
 .manage-grade-structure-container {
-  width: max(60%, 350px);
+  // width: max(60%, 350px);
 
   .manage-options-area {
     @include fCentre();
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
+    gap: 20px;
 
-    .manage-quarter-selection-area {
-      .label {
-        font-weight: bold;
-        margin-right: 10px;
-      }
-
-      label {
-        margin-right: 20px;
-      }
-
-      input {
-        margin-right: 5px;
-      }
+    button {
+      margin-bottom: 20px;
     }
+  }
 
-    .manage-subject-selection {
-      select {
-        padding: 10px 20px;
-        width: 250px;
-      }
-    }
-
-    .manage-add-category-assignment {
-      margin: 20px 0;
-
-      button {
-        margin: 0 20px;
-      }
+  .manage-dropdown-area {
+    input {
+      padding: 10px 20px;
     }
   }
 }

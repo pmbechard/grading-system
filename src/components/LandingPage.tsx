@@ -98,6 +98,7 @@ const LandingPage: React.FC<Props> = ({
             getSubjects={getSubjects}
             getCategories={getCategories}
             handleSubjectChange={handleSubjectChange}
+            getAssignments={getAssignments}
           />
         )}
       </div>
