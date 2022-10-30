@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AssignmentDropdown from './MenuOptions/AssignmentDropdown';
 import CategoryDropdown from './MenuOptions/CategoryDropdown';
 import QuarterDropdown from './MenuOptions/QuarterDropdown';
@@ -28,7 +28,23 @@ const ManageGradeStructure: React.FC<Props> = ({
     'Select an Assignment'
   );
 
+  const [getNewAssignmentInput, setNewAssignmentInput] = useState<string>('');
+
   const [getOption, setOption] = useState<string>('');
+
+  const newAssignmentRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setQuarter('Select a Quarter');
+    setSubject('Select a Subject');
+    setCategory('Select a Category');
+    setAssignment('Select an Assignment');
+    setNewAssignmentInput('');
+  }, [getOption]);
+
+  const handleNewAssignmentInput = (input: string) => {
+    setNewAssignmentInput(input);
+  };
 
   return (
     <div className='manage-grade-structure-container'>
@@ -83,8 +99,18 @@ const ManageGradeStructure: React.FC<Props> = ({
               setCategory={setCategory}
               disabled={getSubject === 'Select a Subject'}
             />
-            <input type='text' disabled={getCategory === 'Select a Category'} />
-            <button>Confirm</button>
+            <input
+              type='text'
+              disabled={getCategory === 'Select a Category'}
+              ref={newAssignmentRef}
+              onChange={(e) => handleNewAssignmentInput(e.currentTarget.value)}
+            />
+            <button
+              className='save-btn'
+              disabled={getNewAssignmentInput.length === 0}
+            >
+              Confirm
+            </button>
           </>
         )}
         {getOption === 'Remove Assignments' && (
@@ -110,7 +136,12 @@ const ManageGradeStructure: React.FC<Props> = ({
                 getCategory
               )}
             />
-            <button>Confirm</button>
+            <button
+              className='remove-btn'
+              disabled={getAssignment === 'Select an Assignment'}
+            >
+              Remove
+            </button>
           </>
         )}
       </div>

@@ -1,6 +1,4 @@
 .manage-grade-structure-container {
-  // width: max(60%, 350px);
-
   .manage-options-area {
     @include fCentre();
     justify-content: center;
@@ -15,6 +13,17 @@
   .manage-dropdown-area {
     input {
       padding: 10px 20px;
+    }
+    button {
+      margin: 0 20px;
+    }
+
+    .remove-btn {
+      background-color: $red;
+    }
+
+    .save-btn {
+      background-color: $green;
     }
   }
 }

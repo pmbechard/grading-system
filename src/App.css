@@ -130,6 +130,15 @@ header {
 .manage-grade-structure-container .manage-dropdown-area input {
   padding: 10px 20px;
 }
+.manage-grade-structure-container .manage-dropdown-area button {
+  margin: 0 20px;
+}
+.manage-grade-structure-container .manage-dropdown-area .remove-btn {
+  background-color: rgb(160, 36, 36);
+}
+.manage-grade-structure-container .manage-dropdown-area .save-btn {
+  background-color: rgb(18, 117, 54);
+}
 
 footer {
   font-size: 14px;
