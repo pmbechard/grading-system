@@ -4,12 +4,14 @@ interface Props {
   getCategories: string[];
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   disabled: boolean;
+  includeAllCategories: boolean;
 }
 
 const CategoryDropdown: React.FC<Props> = ({
   getCategories,
   setCategory,
   disabled,
+  includeAllCategories,
 }) => {
   const categoryRef = useRef<HTMLSelectElement>(null);
 
@@ -17,13 +19,19 @@ const CategoryDropdown: React.FC<Props> = ({
     <select
       id='category-selection'
       ref={categoryRef}
-      defaultValue='All Categories'
+      defaultValue={includeAllCategories ? 'All Categories' : ''}
       onChange={() =>
         setCategory(categoryRef.current?.value || 'All Categories')
       }
       disabled={disabled}
     >
-      <option value='All Categories'>All Categories</option>
+      {includeAllCategories ? (
+        <option value='All Categories'>All Categories</option>
+      ) : (
+        <option disabled value=''>
+          Select a Category
+        </option>
+      )}
       {getCategories.map((category) => {
         return (
           <option key={category} value={category}>

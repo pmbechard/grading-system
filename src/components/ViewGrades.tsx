@@ -44,6 +44,7 @@ const ViewGrades: React.FC<Props> = ({
           getCategories={getCategories}
           setCategory={setCategory}
           disabled={getSubject === 'Select a Subject'}
+          includeAllCategories={true}
         />
       </div>
       {getSubject !== 'Select a Subject' && (

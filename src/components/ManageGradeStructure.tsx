@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import AssignmentDropdown from './MenuOptions/AssignmentDropdown';
 import CategoryDropdown from './MenuOptions/CategoryDropdown';
+import QuarterCheckboxes from './MenuOptions/QuarterCheckboxes';
 import QuarterDropdown from './MenuOptions/QuarterDropdown';
 import SubjectDropdown from './MenuOptions/SubjectDropdown';
 
@@ -27,11 +28,16 @@ const ManageGradeStructure: React.FC<Props> = ({
   const [getAssignment, setAssignment] = useState<string>(
     'Select an Assignment'
   );
+  const [getQuarterCheckBoxSelection, setQuarterCheckBoxSelection] = useState<
+    string[]
+  >([]);
 
+  const [getNewCategoryInput, setNewCategoryInput] = useState<string>('');
   const [getNewAssignmentInput, setNewAssignmentInput] = useState<string>('');
 
   const [getOption, setOption] = useState<string>('');
 
+  const newCategoryRef = useRef<HTMLInputElement>(null);
   const newAssignmentRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -46,19 +52,26 @@ const ManageGradeStructure: React.FC<Props> = ({
     setNewAssignmentInput(input);
   };
 
+  const handleNewCategoryInput = (input: string) => {
+    setNewCategoryInput(input);
+  };
+
   return (
     <div className='manage-grade-structure-container'>
       <div className='manage-options-area'>
-        <button onClick={() => setOption('Add Categories')}>
+        <button onClick={(e) => setOption(e.currentTarget.textContent || '')}>
           Add Categories
         </button>
-        <button onClick={() => setOption('Remove Categories')}>
+        <button onClick={(e) => setOption(e.currentTarget.textContent || '')}>
           Remove Categories
         </button>
-        <button onClick={() => setOption('Add Assignments')}>
+        <button onClick={(e) => setOption(e.currentTarget.textContent || '')}>
+          Modify Category Weights
+        </button>
+        <button onClick={(e) => setOption(e.currentTarget.textContent || '')}>
           Add Assignments
         </button>
-        <button onClick={() => setOption('Remove Assignments')}>
+        <button onClick={(e) => setOption(e.currentTarget.textContent || '')}>
           Remove Assignments
         </button>
       </div>
@@ -71,7 +84,25 @@ const ManageGradeStructure: React.FC<Props> = ({
               disabled={false}
               setSubject={setSubject}
             />
-            <p>Quarter checkboxes?</p>
+            <QuarterCheckboxes
+              getQuarterCheckBoxSelection={getQuarterCheckBoxSelection}
+              setQuarterCheckBoxSelection={setQuarterCheckBoxSelection}
+            />
+            <input
+              type='text'
+              disabled={getSubject === 'Select a Subject'}
+              ref={newCategoryRef}
+              onChange={(e) => handleNewCategoryInput(e.currentTarget.value)}
+            />
+            <button
+              className='save-btn'
+              disabled={
+                getNewCategoryInput.length === 0 &&
+                getQuarterCheckBoxSelection.length === 0
+              }
+            >
+              Confirm
+            </button>
           </>
         )}
         {getOption === 'Remove Categories' && (
@@ -82,7 +113,22 @@ const ManageGradeStructure: React.FC<Props> = ({
               disabled={false}
               setSubject={setSubject}
             />
-            <p>Quarter checkboxes?</p>
+            <CategoryDropdown
+              getCategories={getCategories}
+              setCategory={setCategory}
+              disabled={getSubject === 'Select a Subject'}
+              includeAllCategories={false}
+            />
+            <QuarterCheckboxes
+              getQuarterCheckBoxSelection={getQuarterCheckBoxSelection}
+              setQuarterCheckBoxSelection={setQuarterCheckBoxSelection}
+            />
+            <button
+              className='remove-btn'
+              disabled={getCategory === 'Select a Category'}
+            >
+              Remove
+            </button>
           </>
         )}
         {getOption === 'Add Assignments' && (
@@ -98,6 +144,7 @@ const ManageGradeStructure: React.FC<Props> = ({
               getCategories={getCategories}
               setCategory={setCategory}
               disabled={getSubject === 'Select a Subject'}
+              includeAllCategories={false}
             />
             <input
               type='text'
@@ -113,6 +160,17 @@ const ManageGradeStructure: React.FC<Props> = ({
             </button>
           </>
         )}
+        {getOption === 'Modify Category Weights' && (
+          <>
+            <QuarterDropdown setQuarter={setQuarter} />
+            <SubjectDropdown
+              handleSubjectChange={handleSubjectChange}
+              getSubjects={getSubjects}
+              disabled={getQuarter === 'Select a Quarter'}
+              setSubject={setSubject}
+            />
+          </>
+        )}
         {getOption === 'Remove Assignments' && (
           <>
             <QuarterDropdown setQuarter={setQuarter} />
@@ -126,6 +184,7 @@ const ManageGradeStructure: React.FC<Props> = ({
               getCategories={getCategories}
               setCategory={setCategory}
               disabled={getSubject === 'Select a Subject'}
+              includeAllCategories={false}
             />
             <AssignmentDropdown
               setAssignment={setAssignment}
