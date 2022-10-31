@@ -45,7 +45,9 @@ const ManageGradeStructure: React.FC<Props> = ({
     setSubject('Select a Subject');
     setCategory('Select a Category');
     setAssignment('Select an Assignment');
+    setNewCategoryInput('');
     setNewAssignmentInput('');
+    setQuarterCheckBoxSelection([]);
   }, [getOption]);
 
   const handleNewAssignmentInput = (input: string) => {
@@ -87,19 +89,17 @@ const ManageGradeStructure: React.FC<Props> = ({
             <QuarterCheckboxes
               getQuarterCheckBoxSelection={getQuarterCheckBoxSelection}
               setQuarterCheckBoxSelection={setQuarterCheckBoxSelection}
+              disabled={getSubject === 'Select a Subject'}
             />
             <input
               type='text'
-              disabled={getSubject === 'Select a Subject'}
+              disabled={getQuarterCheckBoxSelection.length === 0}
               ref={newCategoryRef}
               onChange={(e) => handleNewCategoryInput(e.currentTarget.value)}
             />
             <button
               className='save-btn'
-              disabled={
-                getNewCategoryInput.length === 0 &&
-                getQuarterCheckBoxSelection.length === 0
-              }
+              disabled={getNewCategoryInput.length === 0}
             >
               Confirm
             </button>
@@ -122,10 +122,11 @@ const ManageGradeStructure: React.FC<Props> = ({
             <QuarterCheckboxes
               getQuarterCheckBoxSelection={getQuarterCheckBoxSelection}
               setQuarterCheckBoxSelection={setQuarterCheckBoxSelection}
+              disabled={getCategory === 'Select a Category'}
             />
             <button
               className='remove-btn'
-              disabled={getCategory === 'Select a Category'}
+              disabled={getQuarterCheckBoxSelection.length === 0}
             >
               Remove
             </button>

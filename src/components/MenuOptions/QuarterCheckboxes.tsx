@@ -3,11 +3,13 @@ import React from 'react';
 interface Props {
   getQuarterCheckBoxSelection: string[];
   setQuarterCheckBoxSelection: React.Dispatch<React.SetStateAction<string[]>>;
+  disabled: boolean;
 }
 
 const QuarterCheckboxes: React.FC<Props> = ({
   getQuarterCheckBoxSelection,
   setQuarterCheckBoxSelection,
+  disabled,
 }) => {
   const handleQuarterCheckboxSelection = (checked: boolean, value: string) => {
     if (checked)
@@ -35,6 +37,7 @@ const QuarterCheckboxes: React.FC<Props> = ({
             e.currentTarget.value
           )
         }
+        disabled={disabled}
       />
       <label htmlFor='remove-checkbox-q1'>Q1</label>
       <input
@@ -47,6 +50,7 @@ const QuarterCheckboxes: React.FC<Props> = ({
             e.currentTarget.value
           )
         }
+        disabled={disabled}
       />
       <label htmlFor='remove-checkbox-q2'>Q2</label>
       <input
@@ -59,6 +63,7 @@ const QuarterCheckboxes: React.FC<Props> = ({
             e.currentTarget.value
           )
         }
+        disabled={disabled}
       />
       <label htmlFor='remove-checkbox-q3'>Q3</label>
       <input
@@ -71,6 +76,7 @@ const QuarterCheckboxes: React.FC<Props> = ({
             e.currentTarget.value
           )
         }
+        disabled={disabled}
       />
       <label htmlFor='remove-checkbox-q4'>Q4</label>
       <input
@@ -83,6 +89,7 @@ const QuarterCheckboxes: React.FC<Props> = ({
             e.currentTarget.value
           )
         }
+        disabled={disabled}
       />
       <label htmlFor='remove-checkbox-all'>All</label>
     </>
