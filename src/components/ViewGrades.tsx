@@ -83,7 +83,7 @@ const ViewGrades: React.FC<Props> = ({
                     <td rowSpan={2}>{student}</td>
                     <td rowSpan={2}>100</td>
                     <td rowSpan={2}>100</td>
-                    {getCategories.filter((category) => {
+                    {getCategories.map((category) => {
                       if (
                         category === getCategory ||
                         getCategory === 'All Categories'
