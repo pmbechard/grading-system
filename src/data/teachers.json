@@ -1,0 +1,14 @@
+{
+  "teachers": [
+    {
+      "email": "jane@school.com",
+      "name": "Jane Doe",
+      "classes": ["Geometry", "AP CS A", "AP CS P", "CS D"]
+    },
+    {
+      "email": "john@school.com",
+      "name": "John Doe",
+      "classes": ["Algebra 1", "English 11", "World History", "Biology"]
+    }
+  ]
+}

@@ -11,6 +11,7 @@
             { "name": "Ch 3 Test", "quarter": ["2"] },
             { "name": "Ch 4 Test", "quarter": ["2"] }
           ],
+          "quarters": ["1", "2", "3", "4"],
           "weight": "75"
         },
         {
@@ -21,6 +22,7 @@
             { "name": "Q3 HW", "quarter": ["3"] },
             { "name": "Q4 HW", "quarter": ["4"] }
           ],
+          "quarters": ["1", "2", "3", "4"],
           "weight": "25"
         }
       ]
@@ -30,12 +32,12 @@
       "categories": [
         {
           "category": "Progress Checks",
-          "quarters": ["1", "2", "3"],
           "assignments": [
             { "name": "Check 1", "quarter": ["1"] },
             { "name": "Check 2", "quarter": ["2"] },
             { "name": "Check 3", "quarter": ["3"] }
           ],
+          "quarters": ["1", "2", "3", "4"],
           "weight": "100"
         }
       ]

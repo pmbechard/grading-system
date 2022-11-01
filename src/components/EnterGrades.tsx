@@ -16,6 +16,13 @@ interface Props {
   ) => string[];
   getStudentsBySubject: (subject: string) => string[];
   getStudentObj: (name: string) => Student;
+  updateGrade: (
+    student: string,
+    subject: string,
+    category: string,
+    assignment: string,
+    grade: string
+  ) => Promise<void>;
 }
 
 const EnterGrades: React.FC<Props> = ({
@@ -25,6 +32,7 @@ const EnterGrades: React.FC<Props> = ({
   getAssignments,
   getStudentsBySubject,
   getStudentObj,
+  updateGrade,
 }) => {
   const [getQuarter, setQuarter] = useState<string>('Select a Quarter');
   const [getSubject, setSubject] = useState<string>('Select a Subject');
@@ -71,7 +79,7 @@ const EnterGrades: React.FC<Props> = ({
     });
   };
 
-  const commitGradeChanges = () => {
+  const commitGradeChanges = (name: string) => {
     // FIXME: push changes to db
   };
 

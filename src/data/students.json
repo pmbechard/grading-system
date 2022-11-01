@@ -7,19 +7,19 @@
           "class": "Geometry",
           "assignments": [
             {
-              "name": "Ch 1 Test",
+              "assignment": "Ch 1 Test",
               "category": "Chapter Tests",
               "grade": "75",
               "date": "22 Sep 2022"
             },
             {
-              "name": "Ch 2 Test",
+              "assignment": "Ch 2 Test",
               "category": "Chapter Tests",
               "grade": "90",
               "date": "22 Oct 2022"
             },
             {
-              "name": "Q1 HW",
+              "assignment": "Q1 HW",
               "category": "Homework",
               "grade": "80",
               "date": "30 Sep 2022"
@@ -36,7 +36,7 @@
           "class": "AP CS A",
           "assignments": [
             {
-              "name": "Check 1",
+              "assignment": "Check 1",
               "category": "Progress Checks",
               "grade": "90",
               "date": "22 Sep 2022"
@@ -47,19 +47,19 @@
           "class": "Geometry",
           "assignments": [
             {
-              "name": "Ch 1 Test",
+              "assignment": "Ch 1 Test",
               "category": "Chapter Tests",
               "grade": "90",
               "date": "22 Sep 2022"
             },
             {
-              "name": "Ch 2 Test",
+              "assignment": "Ch 2 Test",
               "category": "Chapter Tests",
               "grade": "85",
               "date": "22 Oct 2022"
             },
             {
-              "name": "Q1 HW",
+              "assignment": "Q1 HW",
               "category": "Homework",
               "grade": "95",
               "date": "30 Sep 2022"
