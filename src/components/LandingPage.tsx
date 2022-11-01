@@ -1,45 +1,32 @@
 import React, { useState } from 'react';
 import EnterGrades from './EnterGrades';
-import Student from './Interfaces/StudentInterface';
 import ManageGradeStructure from './ManageGradeStructure';
 import ViewGrades from './ViewGrades';
 
 interface Props {
-  getUser: string;
   logOut: () => Promise<void>;
+  getTeacher: string;
+  getStudents: string[];
   getSubjects: string[];
   getCategories: string[];
-  setCategoriesForSubject: (subject: string) => Promise<void>;
-  setStudentsBySubject: (subject: string) => Promise<void>;
-  getStudents: string[];
-  getAssignments: (
+  getAssignments: string[];
+  readCategories: (quarter: string, subject: string) => Promise<void>;
+  readAssignments: (
     quarter: string,
     subject: string,
-    category?: string
-  ) => string[];
-  getStudentObj: (name: string) => Student;
-  getStudentsBySubject: (subject: string) => string[];
-  updateGrade: (
-    student: string,
-    subject: string,
-    category: string,
-    assignment: string,
-    grade: string
+    category: string
   ) => Promise<void>;
 }
 
 const LandingPage: React.FC<Props> = ({
-  getUser,
   logOut,
+  getTeacher,
+  getStudents,
   getSubjects,
   getCategories,
-  setCategoriesForSubject,
-  setStudentsBySubject,
-  getStudents,
   getAssignments,
-  getStudentObj,
-  getStudentsBySubject,
-  updateGrade,
+  readCategories,
+  readAssignments,
 }) => {
   const [getTab, setTab] = useState<string>('view');
 
@@ -47,15 +34,22 @@ const LandingPage: React.FC<Props> = ({
     setTab(tab);
   };
 
-  const handleSubjectChange = (subject: string) => {
-    setCategoriesForSubject(subject);
-    setStudentsBySubject(subject);
+  const handleSubjectChange = (quarter: string = '', subject: string) => {
+    readCategories(quarter, subject);
+  };
+
+  const handleCategoryChange = (
+    quarter: string,
+    subject: string,
+    category: string
+  ) => {
+    readAssignments(quarter, subject, category);
   };
 
   return (
     <section className='landing-page-container'>
       <div className='user-info-area'>
-        <h2>Hi, {getUser}</h2>
+        <h2>Hi, {getTeacher}</h2>
         <button onClick={logOut}>Sign Out</button>
       </div>
 
@@ -85,30 +79,32 @@ const LandingPage: React.FC<Props> = ({
           <ViewGrades
             getSubjects={getSubjects}
             getCategories={getCategories}
-            handleSubjectChange={handleSubjectChange}
             getStudents={getStudents}
+            handleSubjectChange={handleSubjectChange}
+            handleCategoryChange={handleCategoryChange}
             getAssignments={getAssignments}
-            getStudentObj={getStudentObj}
           />
         )}
         {getTab === 'enter' && (
-          <EnterGrades
-            getSubjects={getSubjects}
-            getCategories={getCategories}
-            handleSubjectChange={handleSubjectChange}
-            getAssignments={getAssignments}
-            getStudentsBySubject={getStudentsBySubject}
-            getStudentObj={getStudentObj}
-            updateGrade={updateGrade}
-          />
+          // <EnterGrades
+          //   getSubjects={getSubjects}
+          //   getCategories={getCategories}
+          //   handleSubjectChange={handleSubjectChange}
+          //   getAssignments={getAssignments}
+          //   getStudentsBySubject={getStudentsBySubject}
+          //   getStudentObj={getStudentObj}
+          //   updateGrade={updateGrade}
+          // />
+          <p>Enter Grades</p>
         )}
         {getTab === 'manage' && (
-          <ManageGradeStructure
-            getSubjects={getSubjects}
-            getCategories={getCategories}
-            handleSubjectChange={handleSubjectChange}
-            getAssignments={getAssignments}
-          />
+          // <ManageGradeStructure
+          //   getSubjects={getSubjects}
+          //   getCategories={getCategories}
+          //   handleSubjectChange={handleSubjectChange}
+          //   getAssignments={getAssignments}
+          // />
+          <p>Manage Grade Structure</p>
         )}
       </div>
     </section>

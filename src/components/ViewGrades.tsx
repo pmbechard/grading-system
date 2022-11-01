@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Student from './Interfaces/StudentInterface';
 import CategoryDropdown from './MenuOptions/CategoryDropdown';
 import QuarterDropdown from './MenuOptions/QuarterDropdown';
 import SubjectDropdown from './MenuOptions/SubjectDropdown';
@@ -7,23 +6,23 @@ import SubjectDropdown from './MenuOptions/SubjectDropdown';
 interface Props {
   getSubjects: string[];
   getCategories: string[];
-  handleSubjectChange: (subject: string) => void;
-  getStudents: string[];
-  getAssignments: (
+  handleSubjectChange: (quarter: string, subject: string) => void;
+  handleCategoryChange: (
     quarter: string,
     subject: string,
-    category?: string
-  ) => string[];
-  getStudentObj: (name: string) => Student;
+    category: string
+  ) => void;
+  getStudents: string[];
+  getAssignments: string[];
 }
 
 const ViewGrades: React.FC<Props> = ({
   getSubjects,
   getCategories,
   handleSubjectChange,
+  handleCategoryChange,
   getStudents,
   getAssignments,
-  getStudentObj,
 }) => {
   const [getQuarter, setQuarter] = useState<string>('Select a Quarter');
   const [getSubject, setSubject] = useState<string>('Select a Subject');

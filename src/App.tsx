@@ -197,17 +197,17 @@ function App() {
       <Header />
       {getTeacher ? (
         <LandingPage
-          getTeacher={getTeacher}
           logOut={logOut}
+
+          getTeacher={getTeacher}
+          getStudents={getStudents}
           getSubjects={getSubjects}
           getCategories={getCategories}
-          setCategoriesForSubject={setCategoriesForSubject}
-          setStudentsBySubject={setStudentsBySubject}
-          getStudents={getStudents}
           getAssignments={getAssignments}
-          getStudentObj={getStudentObj}
-          getStudentsBySubject={getStudentsBySubject}
-          updateGrade={updateGrade}
+
+          readCategories={readCategories}
+          readAssignments={readAssignments}
+
         />
       ) : (
         <div className='log-in-area'>
