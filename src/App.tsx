@@ -8,94 +8,24 @@ import subjects from './data/subjects.json';
 import students from './data/students.json';
 import teachers from './data/teachers.json';
 
-import Subject from './components/Interfaces/SubjectInterface';
-import Student from './components/Interfaces/StudentInterface';
+// import Subject from './components/Interfaces/SubjectInterface';
+// import Student from './components/Interfaces/StudentInterface';
 
-function App() {
+const App = () => {
   const [getTeacher, setTeacher] = useState<string>('');
   const [getStudents, setStudents] = useState<string[]>([]);
   const [getSubjects, setSubjects] = useState<string[]>([]);
-  const [getCategories, setCategories] = useState<string[]>([]);
-  const [getAssignments, setAssignments] = useState<string[]>([]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    fetchSubjects(getTeacher);
+  }, [getTeacher]);
 
   const logIn = async (): Promise<void> => {
     setTimeout(() => setTeacher(teachers.teachers[0].name), 500);
   };
-
   const logOut = async (): Promise<void> => {
     setTimeout(() => setTeacher(''), 500);
   };
-
-  // const fetchSubjects = async (): Promise<void> => {
-  //   // FIXME:
-  //   const subjectsData = subjects.classes as Subject[];
-  //   setSubjects(subjectsData.map((item) => item.subject));
-  // };
-
-  // const setCategoriesForSubject = async (subject: string): Promise<void> => {
-  //   const categoriesData = (subjects.classes as Subject[]).filter(
-  //     (item) => item.subject === subject
-  //   )[0].categories;
-  //   setCategories(categoriesData.map((item) => item.category));
-  // };
-
-  // const setStudentsBySubject = async (subject: string): Promise<void> => {
-  //   const studentList: string[] = [];
-
-  //   students.students.forEach((student) => {
-  //     student.grades.forEach((grade) => {
-  //       if (grade.class === subject) studentList.push(student.name);
-  //     });
-  //   });
-
-  //   setStudents(studentList);
-  // };
-
-  // const getStudentsBySubject = (subject: string): string[] => {
-  //   const studentList: string[] = [];
-
-  //   students.students.forEach((student) => {
-  //     student.grades.forEach((grade) => {
-  //       if (grade.class === subject) studentList.push(student.name);
-  //     });
-  //   });
-
-  //   return studentList;
-  // };
-
-  // const getAssignments = (
-  //   quarter: string,
-  //   subject: string,
-  //   category: string = 'All Categories'
-  // ): string[] => {
-  //   if (!quarter || !subject || !category) return [];
-  //   try {
-  //     quarter = quarter.slice(1);
-  //     const assignmentsList: string[] = [];
-  //     subjects.classes
-  //       .filter((item) => item.subject === subject)[0]
-  //       .categories.forEach((cat) => {
-  //         if (cat.category === category || category === 'All Categories') {
-  //           cat.assignments.forEach((assignment) => {
-  //             if (assignment.quarter.includes(quarter)) {
-  //               assignmentsList.push(assignment.name);
-  //             }
-  //           });
-  //         }
-  //       });
-  //     return assignmentsList;
-  //   } catch (e) {
-  //     return [];
-  //   }
-  // };
-
-  // const getStudentObj = (name: string): Student => {
-  //   return students.students.filter(
-  //     (student) => student.name === name
-  //   )[0] as Student;
-  // };
 
   // CREATE
   const createCategory = async (quarter: string, subject: string) => {};
@@ -106,6 +36,12 @@ function App() {
   ) => {};
 
   // READ
+  const fetchSubjects = async (teacherName: string): Promise<void> => {
+    setSubjects(
+      teachers.teachers.filter((teacher) => teacher.name === teacherName)[0]
+        .classes
+    );
+  };
   const readStudents = async (subject: string): Promise<void> => {
     const studentList: string[] = [];
     students.students.forEach((student) => {
@@ -137,28 +73,22 @@ function App() {
     });
     return gradeList;
   };
-  const readSubjects = async (teacherName: string): Promise<void> => {
-    setSubjects(
-      teachers.teachers.filter((teacher) => teacher.name === teacherName)[0]
-        .classes
-    );
-  };
   const readCategories = async (
     quarter: string,
     subject: string
-  ): Promise<void> => {
+  ): Promise<string[]> => {
     const categories: string[] = [];
     subjects.classes
       .filter((item) => item.subject === subject)[0]
       .categories.filter((category) => category.quarters.includes(quarter))
       .forEach((i) => categories.push(i.category));
-    setCategories(categories);
+    return categories;
   };
   const readAssignments = async (
     quarter: string,
     subject: string,
     category: string
-  ): Promise<void> => {
+  ): Promise<string[]> => {
     const assignments: string[] = [];
     subjects.classes
       .filter((i) => i.subject === subject)[0]
@@ -166,7 +96,7 @@ function App() {
       .filter((k) => k.category === category)[0]
       .assignments.filter((m) => m.quarter.includes(quarter))
       .forEach((n) => assignments.push(n.name));
-    setAssignments(assignments);
+    return assignments;
   };
 
   // UPDATE
@@ -198,16 +128,11 @@ function App() {
       {getTeacher ? (
         <LandingPage
           logOut={logOut}
-
           getTeacher={getTeacher}
           getStudents={getStudents}
           getSubjects={getSubjects}
-          getCategories={getCategories}
-          getAssignments={getAssignments}
-
           readCategories={readCategories}
           readAssignments={readAssignments}
-
         />
       ) : (
         <div className='log-in-area'>
@@ -217,6 +142,6 @@ function App() {
       <Footer />
     </>
   );
-}
+};
 
 export default App;

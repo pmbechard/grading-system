@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import EnterGrades from './EnterGrades';
 import ManageGradeStructure from './ManageGradeStructure';
 import ViewGrades from './ViewGrades';
@@ -8,42 +8,62 @@ interface Props {
   getTeacher: string;
   getStudents: string[];
   getSubjects: string[];
-  getCategories: string[];
-  getAssignments: string[];
-  readCategories: (quarter: string, subject: string) => Promise<void>;
+  readCategories: (quarter: string, subject: string) => Promise<string[]>;
   readAssignments: (
     quarter: string,
     subject: string,
     category: string
-  ) => Promise<void>;
+  ) => Promise<string[]>;
 }
+
+interface StateObj {
+  teacher: string;
+  allSubjects: string[];
+  selectedSubject?: string;
+  selectedStudents?: string[];
+  selectedQuarter?: string;
+  selectedCategory?: string;
+  selectedAssignment?: string;
+}
+
+const reducer = (state: StateObj, action) => {
+  //FIXME:
+};
 
 const LandingPage: React.FC<Props> = ({
   logOut,
   getTeacher,
   getStudents,
   getSubjects,
-  getCategories,
-  getAssignments,
   readCategories,
   readAssignments,
 }) => {
+  const initialState = { teacher: getTeacher, allSubjects: getSubjects };
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   const [getTab, setTab] = useState<string>('view');
+  const [getQuarter, setQuarter] = useState<string>('');
+  const [getSubject, setSubject] = useState<string>('');
+  const [getCategories, setCategories] = useState<string[]>([]);
+  const [getAssignments, setAssignments] = useState<string[]>([]);
 
   const handleTabSwitch = (tab: string) => {
     setTab(tab);
   };
 
-  const handleSubjectChange = (quarter: string = '', subject: string) => {
-    readCategories(quarter, subject);
+  const handleQuarterChange = async (quarter: string) => {
+    setQuarter(quarter);
   };
 
-  const handleCategoryChange = (
-    quarter: string,
-    subject: string,
-    category: string
-  ) => {
-    readAssignments(quarter, subject, category);
+  const handleSubjectChange = async (subject: string) => {
+    setSubject(subject);
+    const data = await readCategories(getQuarter, subject);
+    setCategories(data);
+  };
+
+  const handleCategoryChange = async (category: string) => {
+    const data = await readAssignments(getQuarter, getSubject, category);
+    setAssignments(data);
   };
 
   return (
@@ -77,12 +97,14 @@ const LandingPage: React.FC<Props> = ({
 
         {getTab === 'view' && (
           <ViewGrades
+            getStudents={getStudents}
+            getQuarter={getQuarter}
             getSubjects={getSubjects}
             getCategories={getCategories}
-            getStudents={getStudents}
+            getAssignments={getAssignments}
+            handleQuarterChange={handleQuarterChange}
             handleSubjectChange={handleSubjectChange}
             handleCategoryChange={handleCategoryChange}
-            getAssignments={getAssignments}
           />
         )}
         {getTab === 'enter' && (

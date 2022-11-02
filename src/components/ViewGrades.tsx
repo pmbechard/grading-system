@@ -4,29 +4,26 @@ import QuarterDropdown from './MenuOptions/QuarterDropdown';
 import SubjectDropdown from './MenuOptions/SubjectDropdown';
 
 interface Props {
+  getStudents: string[];
+  getQuarter: string;
   getSubjects: string[];
   getCategories: string[];
-  handleSubjectChange: (quarter: string, subject: string) => void;
-  handleCategoryChange: (
-    quarter: string,
-    subject: string,
-    category: string
-  ) => void;
-  getStudents: string[];
   getAssignments: string[];
+  handleQuarterChange: (quarter: string) => Promise<void>;
+  handleSubjectChange: (subject: string) => Promise<void>;
+  handleCategoryChange: (category: string) => Promise<void>;
 }
 
 const ViewGrades: React.FC<Props> = ({
+  getStudents,
+  getQuarter,
   getSubjects,
   getCategories,
+  getAssignments,
+  handleQuarterChange,
   handleSubjectChange,
   handleCategoryChange,
-  getStudents,
-  getAssignments,
 }) => {
-  const [getQuarter, setQuarter] = useState<string>('Select a Quarter');
-  const [getSubject, setSubject] = useState<string>('Select a Subject');
-  const [getCategory, setCategory] = useState<string>('All Categories');
 
   return (
     <div className='view-grades-container'>
