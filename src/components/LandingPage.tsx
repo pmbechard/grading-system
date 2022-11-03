@@ -6,8 +6,7 @@ import ViewGrades from './ViewGrades';
 interface Props {
   logOut: () => Promise<void>;
   getTeacher: string;
-  getStudents: string[];
-  getSubjects: string[];
+  getSubjectList: string[];
   readCategories: (quarter: string, subject: string) => Promise<string[]>;
   readAssignments: (
     quarter: string,
@@ -16,29 +15,48 @@ interface Props {
   ) => Promise<string[]>;
 }
 
-interface StateObj {
-  teacher: string;
-  allSubjects: string[];
+interface CurrentStateObj {
   selectedSubject?: string;
-  selectedStudents?: string[];
   selectedQuarter?: string;
   selectedCategory?: string;
   selectedAssignment?: string;
 }
 
-const reducer = (state: StateObj, action) => {
-  //FIXME:
+const reducer = (state: CurrentStateObj, action: any) => {
+  switch (action.type) {
+    case 'changeSubject':
+      return { selectedSubject: action.payload };
+    case 'changeQuarter':
+      return {
+        selectedSubject: state.selectedSubject,
+        selectedQuarter: action.payload,
+      };
+    case 'changeCategory':
+      return {
+        selectedSubject: state.selectedSubject,
+        selectedQuarter: action.selectedQuarter,
+        selectedCategory: action.payload,
+      };
+    case 'changeAssignment':
+      return {
+        selectedSubject: state.selectedSubject,
+        selectedQuarter: action.selectedQuarter,
+        selectedCategory: action.selectedCategory,
+        selectedAssignment: action.payload,
+      };
+  }
 };
+
+const initialState = { selectedSubject: ''} as CurrentStateObj;
+
 
 const LandingPage: React.FC<Props> = ({
   logOut,
   getTeacher,
-  getStudents,
-  getSubjects,
+  getSubjectList,
   readCategories,
   readAssignments,
 }) => {
-  const initialState = { teacher: getTeacher, allSubjects: getSubjects };
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const [getTab, setTab] = useState<string>('view');
@@ -52,7 +70,8 @@ const LandingPage: React.FC<Props> = ({
   };
 
   const handleQuarterChange = async (quarter: string) => {
-    setQuarter(quarter);
+    if (state.selectedQuarter !== quarter)
+      dispatch({ type: 'changeQuarter', payload: quarter });
   };
 
   const handleSubjectChange = async (subject: string) => {

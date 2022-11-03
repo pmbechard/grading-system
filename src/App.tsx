@@ -13,8 +13,7 @@ import teachers from './data/teachers.json';
 
 const App = () => {
   const [getTeacher, setTeacher] = useState<string>('');
-  const [getStudents, setStudents] = useState<string[]>([]);
-  const [getSubjects, setSubjects] = useState<string[]>([]);
+  const [getSubjectList, setSubjectList] = useState<string[]>([]);
 
   useEffect(() => {
     fetchSubjects(getTeacher);
@@ -129,8 +128,7 @@ const App = () => {
         <LandingPage
           logOut={logOut}
           getTeacher={getTeacher}
-          getStudents={getStudents}
-          getSubjects={getSubjects}
+          getSubjectList={getSubjectList}
           readCategories={readCategories}
           readAssignments={readAssignments}
         />
