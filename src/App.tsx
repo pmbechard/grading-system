@@ -36,18 +36,18 @@ const App = () => {
 
   // READ
   const fetchSubjects = async (teacherName: string): Promise<void> => {
-    setSubjects(
+    setSubjectList(
       teachers.teachers.filter((teacher) => teacher.name === teacherName)[0]
         .classes
     );
   };
-  const readStudents = async (subject: string): Promise<void> => {
+  const readStudents = async (subject: string): Promise<string[]> => {
     const studentList: string[] = [];
     students.students.forEach((student) => {
       if (student.grades.filter((grade) => grade.class === subject).length > 0)
         studentList.push(student.name);
     });
-    setStudents(studentList);
+    return studentList;
   };
   const readGrades = async (
     subject: string,

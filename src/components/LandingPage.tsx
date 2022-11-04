@@ -44,11 +44,12 @@ const reducer = (state: CurrentStateObj, action: any) => {
         selectedCategory: action.selectedCategory,
         selectedAssignment: action.payload,
       };
+    default:
+      return { ...state } as CurrentStateObj;
   }
 };
 
-const initialState = { selectedSubject: ''} as CurrentStateObj;
-
+const initialState = { selectedSubject: '' } as CurrentStateObj;
 
 const LandingPage: React.FC<Props> = ({
   logOut,
@@ -60,10 +61,10 @@ const LandingPage: React.FC<Props> = ({
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const [getTab, setTab] = useState<string>('view');
-  const [getQuarter, setQuarter] = useState<string>('');
-  const [getSubject, setSubject] = useState<string>('');
-  const [getCategories, setCategories] = useState<string[]>([]);
-  const [getAssignments, setAssignments] = useState<string[]>([]);
+  // const [getQuarter, setQuarter] = useState<string>('');
+  // const [getSubject, setSubject] = useState<string>('');
+  // const [getCategories, setCategories] = useState<string[]>([]);
+  // const [getAssignments, setAssignments] = useState<string[]>([]);
 
   const handleTabSwitch = (tab: string) => {
     setTab(tab);
@@ -75,14 +76,16 @@ const LandingPage: React.FC<Props> = ({
   };
 
   const handleSubjectChange = async (subject: string) => {
-    setSubject(subject);
-    const data = await readCategories(getQuarter, subject);
-    setCategories(data);
+    // setSubject(subject);
+    // setCategories(data);
+    // const data = await readCategories(state.selectedQuarter, subject);
+    dispatch({ type: 'changeSubject', payload: subject });
   };
 
   const handleCategoryChange = async (category: string) => {
-    const data = await readAssignments(getQuarter, getSubject, category);
-    setAssignments(data);
+    // const data = await readAssignments(getQuarter, getSubject, category);
+    // setAssignments(data);
+    dispatch({ type: 'changeCategory', payload: category });
   };
 
   return (
