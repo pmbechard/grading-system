@@ -1,8 +1,6 @@
 import React, { useReducer, useState } from 'react';
 import { initialState, reducer } from './Interfaces/Reducer';
 
-import EnterGrades from './EnterGrades';
-import ManageGradeStructure from './ManageGradeStructure';
 import ViewGrades from './ViewGrades';
 
 interface Props {

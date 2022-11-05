@@ -8,10 +8,12 @@ export interface CurrentStateObj {
   selectedQuarter?: string;
   selectedCategory?: string;
   selectedAssignment?: string;
-  studentList?: string[];
-  categoryList?: string[];
-  assignmentList?: string[];
-  grades?: { name: string; grade: string }[];
+  studentList?: string[] | Promise<string[]>;
+  categoryList?: string[] | Promise<string[]>;
+  assignmentList?: string[] | Promise<string[]>;
+  grades?:
+    | { name: string; grade: string }[]
+    | Promise<{ name: string; grade: string }[]>;
 }
 
 export const reducer = (state: CurrentStateObj, action: any) => {
@@ -22,6 +24,7 @@ export const reducer = (state: CurrentStateObj, action: any) => {
         return studentData;
       };
       return {
+        selectedQuarter: state.selectedQuarter || '',
         selectedSubject: action.payload,
         studentList: getStudentData(),
       };
@@ -34,8 +37,8 @@ export const reducer = (state: CurrentStateObj, action: any) => {
         return categoryData;
       };
       return {
-        selectedSubject: state.selectedSubject,
-        studentList: state.studentList,
+        selectedSubject: state.selectedSubject || '',
+        studentList: state.studentList || [],
         selectedQuarter: action.payload,
         categoryList: getCategoryData(),
       };
