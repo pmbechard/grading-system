@@ -1,4 +1,6 @@
 import React, { useReducer, useState } from 'react';
+import { initialState, reducer } from './Interfaces/Reducer';
+
 import EnterGrades from './EnterGrades';
 import ManageGradeStructure from './ManageGradeStructure';
 import ViewGrades from './ViewGrades';
@@ -7,85 +9,18 @@ interface Props {
   logOut: () => Promise<void>;
   getTeacher: string;
   getSubjectList: string[];
-  readCategories: (quarter: string, subject: string) => Promise<string[]>;
-  readAssignments: (
-    quarter: string,
-    subject: string,
-    category: string
-  ) => Promise<string[]>;
 }
-
-interface CurrentStateObj {
-  selectedSubject?: string;
-  selectedQuarter?: string;
-  selectedCategory?: string;
-  selectedAssignment?: string;
-}
-
-const reducer = (state: CurrentStateObj, action: any) => {
-  switch (action.type) {
-    case 'changeSubject':
-      return { selectedSubject: action.payload };
-    case 'changeQuarter':
-      return {
-        selectedSubject: state.selectedSubject,
-        selectedQuarter: action.payload,
-      };
-    case 'changeCategory':
-      return {
-        selectedSubject: state.selectedSubject,
-        selectedQuarter: action.selectedQuarter,
-        selectedCategory: action.payload,
-      };
-    case 'changeAssignment':
-      return {
-        selectedSubject: state.selectedSubject,
-        selectedQuarter: action.selectedQuarter,
-        selectedCategory: action.selectedCategory,
-        selectedAssignment: action.payload,
-      };
-    default:
-      return { ...state } as CurrentStateObj;
-  }
-};
-
-const initialState = { selectedSubject: '' } as CurrentStateObj;
 
 const LandingPage: React.FC<Props> = ({
   logOut,
   getTeacher,
   getSubjectList,
-  readCategories,
-  readAssignments,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
   const [getTab, setTab] = useState<string>('view');
-  // const [getQuarter, setQuarter] = useState<string>('');
-  // const [getSubject, setSubject] = useState<string>('');
-  // const [getCategories, setCategories] = useState<string[]>([]);
-  // const [getAssignments, setAssignments] = useState<string[]>([]);
 
   const handleTabSwitch = (tab: string) => {
     setTab(tab);
-  };
-
-  const handleQuarterChange = async (quarter: string) => {
-    if (state.selectedQuarter !== quarter)
-      dispatch({ type: 'changeQuarter', payload: quarter });
-  };
-
-  const handleSubjectChange = async (subject: string) => {
-    // setSubject(subject);
-    // setCategories(data);
-    // const data = await readCategories(state.selectedQuarter, subject);
-    dispatch({ type: 'changeSubject', payload: subject });
-  };
-
-  const handleCategoryChange = async (category: string) => {
-    // const data = await readAssignments(getQuarter, getSubject, category);
-    // setAssignments(data);
-    dispatch({ type: 'changeCategory', payload: category });
   };
 
   return (
@@ -119,14 +54,9 @@ const LandingPage: React.FC<Props> = ({
 
         {getTab === 'view' && (
           <ViewGrades
-            getStudents={getStudents}
-            getQuarter={getQuarter}
-            getSubjects={getSubjects}
-            getCategories={getCategories}
-            getAssignments={getAssignments}
-            handleQuarterChange={handleQuarterChange}
-            handleSubjectChange={handleSubjectChange}
-            handleCategoryChange={handleCategoryChange}
+            currentState={state}
+            dispatch={dispatch}
+            getSubjectList={getSubjectList}
           />
         )}
         {getTab === 'enter' && (

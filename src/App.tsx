@@ -8,8 +8,7 @@ import subjects from './data/subjects.json';
 import students from './data/students.json';
 import teachers from './data/teachers.json';
 
-// import Subject from './components/Interfaces/SubjectInterface';
-// import Student from './components/Interfaces/StudentInterface';
+
 
 const App = () => {
   const [getTeacher, setTeacher] = useState<string>('');
@@ -40,62 +39,6 @@ const App = () => {
       teachers.teachers.filter((teacher) => teacher.name === teacherName)[0]
         .classes
     );
-  };
-  const readStudents = async (subject: string): Promise<string[]> => {
-    const studentList: string[] = [];
-    students.students.forEach((student) => {
-      if (student.grades.filter((grade) => grade.class === subject).length > 0)
-        studentList.push(student.name);
-    });
-    return studentList;
-  };
-  const readGrades = async (
-    subject: string,
-    category: string,
-    assignment: string
-  ) => {
-    let gradeList: { name: string; grade: string }[] = [];
-    let studentList = students.students
-      .filter((student) =>
-        student.grades.filter((grade) => grade.class === subject)
-      )
-      .filter((student) =>
-        student.grades[0].assignments.filter(
-          (item) => item.assignment === assignment && item.category === category
-        )
-      );
-    studentList.forEach((student) => {
-      gradeList.push({
-        name: student.name,
-        grade: student.grades[0].assignments[0].grade,
-      });
-    });
-    return gradeList;
-  };
-  const readCategories = async (
-    quarter: string,
-    subject: string
-  ): Promise<string[]> => {
-    const categories: string[] = [];
-    subjects.classes
-      .filter((item) => item.subject === subject)[0]
-      .categories.filter((category) => category.quarters.includes(quarter))
-      .forEach((i) => categories.push(i.category));
-    return categories;
-  };
-  const readAssignments = async (
-    quarter: string,
-    subject: string,
-    category: string
-  ): Promise<string[]> => {
-    const assignments: string[] = [];
-    subjects.classes
-      .filter((i) => i.subject === subject)[0]
-      .categories.filter((j) => j.quarters.includes(quarter))
-      .filter((k) => k.category === category)[0]
-      .assignments.filter((m) => m.quarter.includes(quarter))
-      .forEach((n) => assignments.push(n.name));
-    return assignments;
   };
 
   // UPDATE
@@ -129,8 +72,6 @@ const App = () => {
           logOut={logOut}
           getTeacher={getTeacher}
           getSubjectList={getSubjectList}
-          readCategories={readCategories}
-          readAssignments={readAssignments}
         />
       ) : (
         <div className='log-in-area'>
