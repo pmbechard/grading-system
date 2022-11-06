@@ -2,14 +2,14 @@ import React, { useRef } from 'react';
 
 interface Props {
   getCategories: string[];
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  dispatch: React.Dispatch<any>;
   disabled: boolean;
   includeAllCategories: boolean;
 }
 
 const CategoryDropdown: React.FC<Props> = ({
   getCategories,
-  setCategory,
+  dispatch,
   disabled,
   includeAllCategories,
 }) => {
@@ -21,7 +21,10 @@ const CategoryDropdown: React.FC<Props> = ({
       ref={categoryRef}
       defaultValue={includeAllCategories ? 'All Categories' : ''}
       onChange={() =>
-        setCategory(categoryRef.current?.value || 'All Categories')
+        dispatch({
+          type: 'changeCategory',
+          payload: categoryRef.current?.value,
+        })
       }
       disabled={disabled}
     >

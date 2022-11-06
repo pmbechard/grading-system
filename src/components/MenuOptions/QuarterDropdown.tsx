@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 
 interface Props {
-  setQuarter: React.Dispatch<React.SetStateAction<string>>;
+  dispatch: React.Dispatch<any>;
 }
 
-const QuarterDropdown: React.FC<Props> = ({ setQuarter }) => {
+const QuarterDropdown: React.FC<Props> = ({ dispatch }) => {
   const quarterRef = useRef<HTMLSelectElement>(null);
 
   return (
@@ -13,7 +13,10 @@ const QuarterDropdown: React.FC<Props> = ({ setQuarter }) => {
       defaultValue=''
       ref={quarterRef}
       onChange={() =>
-        setQuarter(quarterRef.current?.value || 'Select a Quarter')
+        dispatch({
+          type: 'changeQuarter',
+          payload: quarterRef.current?.value,
+        })
       }
     >
       <option disabled value=''>

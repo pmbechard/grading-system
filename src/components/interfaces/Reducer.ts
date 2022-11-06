@@ -8,66 +8,68 @@ export interface CurrentStateObj {
   selectedQuarter?: string;
   selectedCategory?: string;
   selectedAssignment?: string;
-  studentList?: string[] | Promise<string[]>;
-  categoryList?: string[] | Promise<string[]>;
-  assignmentList?: string[] | Promise<string[]>;
-  grades?:
-    | { name: string; grade: string }[]
-    | Promise<{ name: string; grade: string }[]>;
+  studentList?: string[];
+  categoryList?: string[];
+  assignmentList?: string[];
+  grades?: { name: string; grade: string }[];
 }
 
 export const reducer = (state: CurrentStateObj, action: any) => {
   switch (action.type) {
     case 'changeSubject':
       const getStudentData = async () => {
-        const studentData = await readStudents(action.payload);
-        return studentData;
+        studentData = await readStudents(action.payload);
       };
+      let studentData;
+      getStudentData();
       return {
         selectedQuarter: state.selectedQuarter || '',
         selectedSubject: action.payload,
-        studentList: getStudentData(),
+        studentList: studentData,
       };
     case 'changeQuarter':
       const getCategoryData = async () => {
-        const categoryData = await readCategories(
+        categoryData = await readCategories(
           action.payload,
           state.selectedSubject || ''
         );
-        return categoryData;
       };
+      let categoryData;
+      getCategoryData();
       return {
         selectedSubject: state.selectedSubject || '',
         studentList: state.studentList || [],
         selectedQuarter: action.payload,
-        categoryList: getCategoryData(),
+        categoryList: categoryData,
       };
     case 'changeCategory':
       const getAssignmentData = async () => {
-        const assignmentData = await readAssignments(
+        assignmentData = await readAssignments(
           state.selectedQuarter || '',
           state.selectedSubject || '',
           state.selectedCategory || ''
         );
-        return assignmentData;
       };
+      let assignmentData;
+      getAssignmentData();
       return {
         selectedSubject: state.selectedSubject,
         studentList: state.studentList,
         selectedQuarter: state.selectedQuarter,
         categoryList: state.categoryList,
         selectedCategory: action.payload,
-        assignmentList: getAssignmentData(),
+        assignmentList: assignmentData,
       };
     case 'changeAssignment':
       const getGradesData = async () => {
-        const gradesData = await readGrades(
+        gradesData = await readGrades(
           state.selectedSubject || '',
           state.selectedCategory || '',
           state.selectedAssignment || ''
         );
-        return gradesData;
       };
+      let gradesData;
+      getGradesData();
       return {
         selectedSubject: state.selectedSubject,
         studentList: state.studentList,
@@ -76,7 +78,7 @@ export const reducer = (state: CurrentStateObj, action: any) => {
         selectedCategory: state.selectedCategory,
         assignmentList: state.assignmentList,
         selectedAssignment: action.payload,
-        grades: getGradesData(),
+        grades: gradesData,
       };
     default:
       return { ...state } as CurrentStateObj;

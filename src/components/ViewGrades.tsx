@@ -25,7 +25,7 @@ const ViewGrades: React.FC<Props> = ({
           dispatch={dispatch}
         />
         <CategoryDropdown
-          getCategories={currentState.categoryList}
+          getCategories={currentState.categoryList || []}
           dispatch={dispatch}
           disabled={currentState.selectedSubject === 'Select a Subject'}
           includeAllCategories={true}
@@ -40,75 +40,80 @@ const ViewGrades: React.FC<Props> = ({
               </th>
               <th rowSpan={2}>Annual Total</th>
               <th rowSpan={2}>Quarterly Total</th>
-              {currentState.categoryList ||
-                [].map((category) => {
-                  if (
-                    currentState.selectedCategory === category ||
-                    currentState.selectedCategory === 'All Categories'
-                  )
-                    return (
-                      <th
-                        key={category}
-                        colSpan={currentState.assignmentList.length || 0}
-                      >
-                        {category}
-                      </th>
-                    );
-                  else return <></>;
-                })}
+
+              {/* LIST OUT ALL MATCHING CATEGORIES AS <th> ELEMENTS */}
+              {currentState.selectedCategory === 'All Categories' ? (
+                currentState.categoryList?.map((category) => {
+                  return (
+                    <th
+                      key={`category-${category}`}
+                      colSpan={currentState.assignmentList?.length}
+                    >
+                      {category}
+                    </th>
+                  );
+                })
+              ) : (
+                <th
+                  key={`category-${currentState.selectedCategory}`}
+                  colSpan={currentState.assignmentList?.length}
+                >
+                  {currentState.selectedCategory}
+                </th>
+              )}
             </tr>
           </thead>
+
           <tbody>
-            {currentState.studentList ||
-              [].map((student) => {
-                return (
-                  <>
-                    <tr key={student}>
-                      <td rowSpan={2}>{student}</td>
-                      <td rowSpan={2}>100</td>
-                      <td rowSpan={2}>100</td>
-                      {getCategories.map((category) => {
-                        if (
-                          category === getCategory ||
-                          getCategory === 'All Categories'
-                        ) {
-                          return getAssignments(
-                            getQuarter,
-                            getSubject,
-                            category
-                          ).map((assignment) => {
+            {/* LIST OUT STUDENT NAMES AND ASSIGNMENT HEADINGS IN EACH ROW */}
+            {(currentState.studentList || []).map((student) => {
+              return (
+                <>
+                  <tr key={student}>
+                    <td rowSpan={2}>{student}</td>
+                    <td rowSpan={2}>100</td>
+                    <td rowSpan={2}>100</td>
+
+                    {currentState.assignmentList?.map((assignment) => {
+                      return (
+                        <td
+                          key={`${currentState.selectedCategory}-${assignment}`}
+                        >
+                          {assignment}
+                        </td>
+                      );
+                    })}
+                  </tr>
+
+                  {/* LIST OUT STUDENT GRADES FOR EACH ASSIGNMENT */}
+                  <tr key={`${student}-grades`}>
+                    {Object.values(currentState.grades || {}).map((item) => {
+                      if (item.name === student) return <td>{item.grade}</td>;
+                      else return <></>;
+                    })}
+
+                    {/* {getStudentObj(student).grades.map((grade) => {
+                      if (getSubject === grade.class) {
+                        return grade.assignments.map((assignment) => {
+                          if (
+                            assignment.category === getCategory ||
+                            getCategory === 'All Categories'
+                          )
                             return (
-                              <td key={`${category}-${assignment}`}>
-                                {assignment}
+                              <td
+                                key={`${student}-${assignment}-${assignment.grade}`}
+                              >
+                                {assignment.grade}
                               </td>
                             );
-                          });
-                        } else return <></>;
-                      })}
-                    </tr>
-                    <tr key={`${student}-grades`}>
-                      {getStudentObj(student).grades.map((grade) => {
-                        if (getSubject === grade.class) {
-                          return grade.assignments.map((assignment) => {
-                            if (
-                              assignment.category === getCategory ||
-                              getCategory === 'All Categories'
-                            )
-                              return (
-                                <td
-                                  key={`${student}-${assignment}-${assignment.grade}`}
-                                >
-                                  {assignment.grade}
-                                </td>
-                              );
-                            else return <></>;
-                          });
-                        } else return <></>;
-                      })}
-                    </tr>
-                  </>
-                );
-              })}
+                          else return <></>;
+                        });
+                      } else return <></>;
+                    })} */}
+                  </tr>
+                </>
+              );
+            })}
           </tbody>
         </table>
       )}

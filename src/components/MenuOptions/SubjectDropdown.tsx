@@ -1,17 +1,15 @@
 import React, { useRef } from 'react';
 
 interface Props {
-  handleSubjectChange: (subject: string) => void;
   getSubjects: string[];
   disabled: boolean;
-  setSubject: React.Dispatch<React.SetStateAction<string>>;
+  dispatch: React.Dispatch<any>;
 }
 
 const SubjectDropdown: React.FC<Props> = ({
-  handleSubjectChange,
   getSubjects,
   disabled,
-  setSubject,
+  dispatch,
 }) => {
   const subjectRef = useRef<HTMLSelectElement>(null);
 
@@ -21,8 +19,7 @@ const SubjectDropdown: React.FC<Props> = ({
       ref={subjectRef}
       defaultValue=''
       onChange={() => {
-        handleSubjectChange(subjectRef.current?.value || '');
-        setSubject(subjectRef.current?.value || 'Select a Subject');
+        dispatch({ type: 'changeSubject', payload: subjectRef.current?.value });
       }}
       disabled={disabled}
     >
