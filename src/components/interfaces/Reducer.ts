@@ -17,18 +17,18 @@ export interface CurrentStateObj {
 export const reducer = (state: CurrentStateObj, action: any) => {
   switch (action.type) {
     case 'changeSubject':
+      let studentData;
+      let categoryListData;
       const getData = async () => {
         studentData = await readStudents(action.payload);
         categoryListData = state.selectedQuarter
           ? await readCategories(state.selectedQuarter, action.payload)
-          : '';
+          : [];
+        console.log(studentData, categoryListData);
       };
-      // FIXME: both coming out as undefined after getData() call
-      let studentData;
-      let categoryListData;
       getData();
-      console.log(categoryListData, action.payload);
 
+      // FIXME: return happens before var promises are resolved
       return {
         selectedQuarter: state.selectedQuarter || '',
         selectedSubject: action.payload,
@@ -42,6 +42,7 @@ export const reducer = (state: CurrentStateObj, action: any) => {
           state.selectedSubject || ''
         );
       };
+      // FIXME:
       let categoryData;
       getCategoryData();
       return {
@@ -76,6 +77,7 @@ export const reducer = (state: CurrentStateObj, action: any) => {
           action.payload || ''
         );
       };
+      // FIXME:
       let gradesData;
       getGradesData();
       return {
@@ -138,7 +140,7 @@ const readCategories = async (
       (sub) => sub.subject === subject
     )[0];
     subjectObj.categories.forEach((category) => {
-      if (category.quarters.includes(quarter))
+      if (category.quarters.includes(quarter.substring(1)))
         categories.push(category.category);
     });
   } catch (e) {
