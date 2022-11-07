@@ -17,15 +17,23 @@ export interface CurrentStateObj {
 export const reducer = (state: CurrentStateObj, action: any) => {
   switch (action.type) {
     case 'changeSubject':
-      const getStudentData = async () => {
+      const getData = async () => {
         studentData = await readStudents(action.payload);
+        categoryListData = state.selectedQuarter
+          ? await readCategories(state.selectedQuarter, action.payload)
+          : '';
       };
+      // FIXME: both coming out as undefined after getData() call
       let studentData;
-      getStudentData();
+      let categoryListData;
+      getData();
+      console.log(categoryListData, action.payload);
+
       return {
         selectedQuarter: state.selectedQuarter || '',
         selectedSubject: action.payload,
         studentList: studentData,
+        categoryList: categoryListData,
       };
     case 'changeQuarter':
       const getCategoryData = async () => {
@@ -46,7 +54,7 @@ export const reducer = (state: CurrentStateObj, action: any) => {
       const getAssignmentData = async () => {
         assignmentData = await readAssignments(
           state.selectedQuarter || '',
-          state.selectedSubject || '',
+          action.payload || '',
           state.selectedCategory || ''
         );
       };
@@ -65,7 +73,7 @@ export const reducer = (state: CurrentStateObj, action: any) => {
         gradesData = await readGrades(
           state.selectedSubject || '',
           state.selectedCategory || '',
-          state.selectedAssignment || ''
+          action.payload || ''
         );
       };
       let gradesData;
@@ -125,10 +133,17 @@ const readCategories = async (
   subject: string
 ): Promise<string[]> => {
   const categories: string[] = [];
-  subjects.classes
-    .filter((item) => item.subject === subject)[0]
-    .categories.filter((category) => category.quarters.includes(quarter))
-    .forEach((i) => categories.push(i.category));
+  try {
+    let subjectObj = subjects.classes.filter(
+      (sub) => sub.subject === subject
+    )[0];
+    subjectObj.categories.forEach((category) => {
+      if (category.quarters.includes(quarter))
+        categories.push(category.category);
+    });
+  } catch (e) {
+    return [];
+  }
   return categories;
 };
 const readAssignments = async (

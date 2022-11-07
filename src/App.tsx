@@ -8,8 +8,6 @@ import subjects from './data/subjects.json';
 import students from './data/students.json';
 import teachers from './data/teachers.json';
 
-
-
 const App = () => {
   const [getTeacher, setTeacher] = useState<string>('');
   const [getSubjectList, setSubjectList] = useState<string[]>([]);
@@ -35,6 +33,7 @@ const App = () => {
 
   // READ
   const fetchSubjects = async (teacherName: string): Promise<void> => {
+    if (!teacherName) return;
     setSubjectList(
       teachers.teachers.filter((teacher) => teacher.name === teacherName)[0]
         .classes

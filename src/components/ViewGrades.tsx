@@ -21,17 +21,17 @@ const ViewGrades: React.FC<Props> = ({
 
         <SubjectDropdown
           getSubjects={getSubjectList}
-          disabled={currentState.selectedQuarter === 'Select a Quarter'}
+          disabled={!currentState.selectedQuarter}
           dispatch={dispatch}
         />
         <CategoryDropdown
-          getCategories={currentState.categoryList || []}
+          currentState={currentState}
           dispatch={dispatch}
-          disabled={currentState.selectedSubject === 'Select a Subject'}
+          disabled={!currentState.selectedSubject}
           includeAllCategories={true}
         />
       </div>
-      {currentState.selectedSubject !== 'Select a Subject' && (
+      {currentState.selectedSubject && (
         <table>
           <thead>
             <tr>
@@ -91,25 +91,6 @@ const ViewGrades: React.FC<Props> = ({
                       if (item.name === student) return <td>{item.grade}</td>;
                       else return <></>;
                     })}
-
-                    {/* {getStudentObj(student).grades.map((grade) => {
-                      if (getSubject === grade.class) {
-                        return grade.assignments.map((assignment) => {
-                          if (
-                            assignment.category === getCategory ||
-                            getCategory === 'All Categories'
-                          )
-                            return (
-                              <td
-                                key={`${student}-${assignment}-${assignment.grade}`}
-                              >
-                                {assignment.grade}
-                              </td>
-                            );
-                          else return <></>;
-                        });
-                      } else return <></>;
-                    })} */}
                   </tr>
                 </>
               );

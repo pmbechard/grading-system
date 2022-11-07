@@ -1,14 +1,15 @@
 import React, { useRef } from 'react';
+import { CurrentStateObj } from '../Interfaces/Reducer';
 
 interface Props {
-  getCategories: string[];
+  currentState: CurrentStateObj;
   dispatch: React.Dispatch<any>;
   disabled: boolean;
   includeAllCategories: boolean;
 }
 
 const CategoryDropdown: React.FC<Props> = ({
-  getCategories,
+  currentState,
   dispatch,
   disabled,
   includeAllCategories,
@@ -35,7 +36,7 @@ const CategoryDropdown: React.FC<Props> = ({
           Select a Category
         </option>
       )}
-      {getCategories.map((category) => {
+      {currentState.categoryList?.map((category) => {
         return (
           <option key={category} value={category}>
             {category}
