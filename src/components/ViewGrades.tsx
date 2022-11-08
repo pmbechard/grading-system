@@ -7,12 +7,33 @@ interface Props {
   currentState: CurrentStateObj;
   dispatch: React.Dispatch<any>;
   getSubjectList: string[];
+  readStudents: (subject: string) => Promise<string[]>;
+  readCategories: (quarter: string, subject: string) => Promise<string[]>;
+  readAssignments: (
+    quarter: string,
+    subject: string,
+    category: string
+  ) => Promise<string[]>;
+  readGrades: (
+    subject: string,
+    category: string,
+    assignment: string
+  ) => Promise<
+    {
+      name: string;
+      grade: string;
+    }[]
+  >;
 }
 
 const ViewGrades: React.FC<Props> = ({
   currentState,
   dispatch,
   getSubjectList,
+  readStudents,
+  readCategories,
+  readAssignments,
+  readGrades,
 }) => {
   return (
     <div className='view-grades-container'>
@@ -20,9 +41,12 @@ const ViewGrades: React.FC<Props> = ({
         <QuarterDropdown dispatch={dispatch} />
 
         <SubjectDropdown
+          currentState={currentState}
           getSubjects={getSubjectList}
           disabled={!currentState.selectedQuarter}
           dispatch={dispatch}
+          readStudents={readStudents}
+          readCategories={readCategories}
         />
         <CategoryDropdown
           currentState={currentState}

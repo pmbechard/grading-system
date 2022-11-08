@@ -7,12 +7,33 @@ interface Props {
   logOut: () => Promise<void>;
   getTeacher: string;
   getSubjectList: string[];
+  readStudents: (subject: string) => Promise<string[]>;
+  readCategories: (quarter: string, subject: string) => Promise<string[]>;
+  readAssignments: (
+    quarter: string,
+    subject: string,
+    category: string
+  ) => Promise<string[]>;
+  readGrades: (
+    subject: string,
+    category: string,
+    assignment: string
+  ) => Promise<
+    {
+      name: string;
+      grade: string;
+    }[]
+  >;
 }
 
 const LandingPage: React.FC<Props> = ({
   logOut,
   getTeacher,
   getSubjectList,
+  readStudents,
+  readCategories,
+  readAssignments,
+  readGrades,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [getTab, setTab] = useState<string>('view');
@@ -55,6 +76,10 @@ const LandingPage: React.FC<Props> = ({
             currentState={state}
             dispatch={dispatch}
             getSubjectList={getSubjectList}
+            readStudents={readStudents}
+            readCategories={readCategories}
+            readAssignments={readAssignments}
+            readGrades={readGrades}
           />
         )}
         {getTab === 'enter' && (

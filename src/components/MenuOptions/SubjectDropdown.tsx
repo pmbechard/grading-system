@@ -1,15 +1,22 @@
 import React, { useRef } from 'react';
+import { CurrentStateObj } from '../Interfaces/Reducer';
 
 interface Props {
+  currentState: CurrentStateObj;
   getSubjects: string[];
   disabled: boolean;
   dispatch: React.Dispatch<any>;
+  readStudents: (subject: string) => Promise<string[]>;
+  readCategories: (quarter: string, subject: string) => Promise<string[]>;
 }
 
 const SubjectDropdown: React.FC<Props> = ({
+  currentState,
   getSubjects,
   disabled,
   dispatch,
+  readStudents,
+  readCategories,
 }) => {
   const subjectRef = useRef<HTMLSelectElement>(null);
 
@@ -18,8 +25,21 @@ const SubjectDropdown: React.FC<Props> = ({
       id='subject-selection'
       ref={subjectRef}
       defaultValue=''
-      onChange={() => {
-        dispatch({ type: 'changeSubject', payload: subjectRef.current?.value });
+      onChange={async () => {
+        let subject = subjectRef.current?.value;
+        let studentList = await readStudents(subject || '');
+        let categoryList = await readCategories(
+          currentState.selectedQuarter || '',
+          subject || ''
+        );
+        dispatch({
+          type: 'changeSubject',
+          payload: {
+            selectedSubject: subject,
+            studentList: studentList,
+            categoryList: categoryList,
+          },
+        });
       }}
       disabled={disabled}
     >
