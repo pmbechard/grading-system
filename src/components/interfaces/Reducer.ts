@@ -13,32 +13,26 @@ export const reducer = (state: CurrentStateObj, action: any) => {
   switch (action.type) {
     case 'changeQuarter':
       return {
+        ...state,
         selectedQuarter: action.payload,
       };
     case 'changeSubject':
       return {
-        selectedQuarter: state.selectedQuarter || '',
+        ...state,
         selectedSubject: action.payload.selectedSubject,
         studentList: action.payload.studentList,
         categoryList: action.payload.categoryList,
+        selectedCategory: 'All Categories',
       };
     case 'changeCategory':
       return {
-        selectedSubject: state.selectedSubject,
-        studentList: state.studentList,
-        selectedQuarter: state.selectedQuarter,
-        categoryList: state.categoryList,
+        ...state,
         selectedCategory: action.payload.selectedCategory,
         assignmentList: action.payload.assignmentList,
       };
     case 'changeAssignment':
       return {
-        selectedSubject: state.selectedSubject,
-        studentList: state.studentList,
-        selectedQuarter: state.selectedQuarter,
-        categoryList: state.categoryList,
-        selectedCategory: state.selectedCategory,
-        assignmentList: state.assignmentList,
+        ...state,
         selectedAssignment: action.payload.selectedAssignment,
         grades: action.payload.grades,
       };

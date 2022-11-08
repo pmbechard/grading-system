@@ -53,6 +53,7 @@ const ViewGrades: React.FC<Props> = ({
           dispatch={dispatch}
           disabled={!currentState.selectedSubject}
           includeAllCategories={true}
+          readAssignments={readAssignments}
         />
       </div>
       {currentState.selectedSubject && (

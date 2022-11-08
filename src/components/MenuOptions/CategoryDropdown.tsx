@@ -6,6 +6,11 @@ interface Props {
   dispatch: React.Dispatch<any>;
   disabled: boolean;
   includeAllCategories: boolean;
+  readAssignments: (
+    quarter: string,
+    subject: string,
+    category: string
+  ) => Promise<string[]>;
 }
 
 const CategoryDropdown: React.FC<Props> = ({
@@ -13,6 +18,7 @@ const CategoryDropdown: React.FC<Props> = ({
   dispatch,
   disabled,
   includeAllCategories,
+  readAssignments,
 }) => {
   const categoryRef = useRef<HTMLSelectElement>(null);
 
@@ -21,12 +27,21 @@ const CategoryDropdown: React.FC<Props> = ({
       id='category-selection'
       ref={categoryRef}
       defaultValue={includeAllCategories ? 'All Categories' : ''}
-      onChange={() =>
+      onChange={async () => {
+        let selectedCategory = categoryRef.current?.value || 'All Categories';
+        let assignmentList = await readAssignments(
+          currentState.selectedQuarter || '',
+          currentState.selectedSubject || '',
+          selectedCategory || ''
+        );
         dispatch({
           type: 'changeCategory',
-          payload: categoryRef.current?.value,
-        })
-      }
+          payload: {
+            selectedCategory: selectedCategory,
+            assignmentList: assignmentList,
+          },
+        });
+      }}
       disabled={disabled}
     >
       {includeAllCategories ? (

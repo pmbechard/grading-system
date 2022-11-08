@@ -93,13 +93,18 @@ const App = () => {
     subject: string,
     category: string
   ): Promise<string[]> => {
+    console.log('here', quarter, subject, category);
     const assignments: string[] = [];
-    subjects.classes
-      .filter((i) => i.subject === subject)[0]
-      .categories.filter((j) => j.quarters.includes(quarter))
-      .filter((k) => k.category === category)[0]
-      .assignments.filter((m) => m.quarter.includes(quarter))
-      .forEach((n) => assignments.push(n.name));
+    try {
+      subjects.classes
+        .filter((i) => i.subject === subject)[0]
+        .categories.filter((j) => j.quarters.includes(quarter))
+        .filter((k) => k.category === category)[0]
+        .assignments?.filter((m) => m.quarter.includes(quarter))
+        .forEach((n) => assignments.push(n.name));
+    } catch (e) {
+      console.log(e);
+    }
     return assignments;
   };
 
