@@ -1,5 +1,6 @@
 import subjects from '../../data/subjects.json';
 import students from '../../data/students.json';
+import { resolve } from 'path';
 
 // REDUCER
 
@@ -19,22 +20,40 @@ export const reducer = (state: CurrentStateObj, action: any) => {
     case 'changeSubject':
       let studentData;
       let categoryListData;
+      let returnObj;
       const getData = async () => {
         studentData = await readStudents(action.payload);
         categoryListData = state.selectedQuarter
           ? await readCategories(state.selectedQuarter, action.payload)
           : [];
-        console.log(studentData, categoryListData);
+        return [studentData, categoryListData];
       };
-      getData();
+      //   getData();
 
-      // FIXME: return happens before var promises are resolved
-      return {
-        selectedQuarter: state.selectedQuarter || '',
-        selectedSubject: action.payload,
-        studentList: studentData,
-        categoryList: categoryListData,
+      // FIXME: return happens before vars are defined by awaits
+      //   return {
+      //     selectedQuarter: state.selectedQuarter || '',
+      //     selectedSubject: action.payload,
+      //     studentList: studentData,
+      //     categoryList: categoryListData,
+      //   };
+
+      const processData = (
+        studentData: string[],
+        categoryListData: string[]
+      ) => {
+        return {
+          selectedQuarter: state.selectedQuarter || '',
+          selectedSubject: action.payload,
+          studentList: studentData,
+          categoryList: categoryListData,
+        };
       };
+
+      return getData().then(([studentData, categoryListData]) => {
+        return processData(studentData, categoryListData);
+      });
+
     case 'changeQuarter':
       const getCategoryData = async () => {
         categoryData = await readCategories(
