@@ -94,15 +94,23 @@ const App = () => {
     category: string
   ): Promise<string[]> => {
     console.log('here', quarter, subject, category);
-    const assignments: string[] = [];
+    let assignments: string[] = [];
     try {
-      subjects.classes
-        .filter((i) => i.subject === subject)[0]
-        .categories.filter((j) => j.quarters.includes(quarter))
-        .filter((k) => k.category === category)[0]
-        .assignments?.filter((m) => m.quarter.includes(quarter))
-        .forEach((n) => assignments.push(n.name));
+      const subjectObj = subjects.classes.filter(
+        (obj) => obj.subject === subject
+      )[0];
+      const categoriesObj =
+        category === 'All Categories'
+          ? subjectObj.categories
+          : subjectObj.categories.filter((item) => item.category === category);
+      const filteredCategories = categoriesObj.filter((item) =>
+        item.quarters.includes(quarter.substring(1))
+      );
+      filteredCategories.forEach((item) =>
+        item.assignments.forEach((ass) => assignments.push(ass.name))
+      );
     } catch (e) {
+      console.log(assignments);
       console.log(e);
     }
     return assignments;

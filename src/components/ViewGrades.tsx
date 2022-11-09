@@ -111,11 +111,13 @@ const ViewGrades: React.FC<Props> = ({
                   </tr>
 
                   {/* LIST OUT STUDENT GRADES FOR EACH ASSIGNMENT */}
+                  {/* FIXME: issue with grades objects*/}
                   <tr key={`${student}-grades`}>
-                    {Object.values(currentState.grades || {}).map((item) => {
+                    {}
+                    {/* {Object.values(currentState.grades || {}).map((item) => {
                       if (item.name === student) return <td>{item.grade}</td>;
-                      else return <></>;
-                    })}
+                      else return <td>1</td>;
+                    })} */}
                   </tr>
                 </>
               );
